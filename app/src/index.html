@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title> Hello I'm V </title>
-  <link rel="image_src" href="http://vaalentin.github.io/2015/app/public/img/preview.jpg" />
-  <meta name="description" content="A french Creative / Front end developer who loves to experiment, iterate and build premium experiences." />
+  <title> IETE SPIT </title>
+  <!-- <link rel="image_src" href="http://vaalentin.github.io/2015/app/public/img/preview.jpg" /> -->
+  <meta name="description" content="IETE SPIT" />
   <link rel="apple-touch-icon" sizes="57x57" href="./app/public/favicons/apple-touch-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="114x114" href="./app/public/favicons/apple-touch-icon-114x114.png">
   <link rel="apple-touch-icon" sizes="72x72" href="./app/public/favicons/apple-touch-icon-72x72.png">
@@ -19,13 +19,59 @@
   <link rel="icon" type="image/png" href="./app/public/favicons/favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/png" href="./app/public/favicons/favicon-16x16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="./app/public/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/v4-shims.min.css">
   <meta name="msapplication-TileColor" content="#2d89ef">
   <meta name="msapplication-TileImage" content="./app/public/favicons/mstile-144x144.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.stats-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.card {
+  border: 1px solid white;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.icon {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.card h2 {
+  font-size: 30px;
+  margin: 10px 0;
+}
+
+.card p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+  </style>
 </head>
 <body>
   <div class="loader">
-    <h3 class="text--center text--white loader__title is-active"> LOADING </h3>
+    <h3 class="text--center text--white loader__title is-active"> Welcome ...</h3>
     <div class="loader__progress"></div>
   </div>
 
@@ -36,8 +82,7 @@
       /* jshint strict: false */
       /* jshint laxbreak: true */
 
-      // disable console
-      console.log('That\'s probably what you\'re looking for! https://github.com/vaalentin/2015');
+
 
       if (!window.console) { window.console = {}; }
       var methods = ['log', 'debug', 'warn', 'info'];
@@ -186,8 +231,8 @@
 
         <div class="menu__items">
           <a class="menu__item menu__items--3D" data-button="sounds"> MUTE </a>
-          <a class="menu__item menu__items--3D" data-button="help"> HELP </a>
-          <a class="menu__item placeholder--email"> CONTACT </a>
+          <a class="menu__item menu__items--3D" data-button="help">Our Team </a>
+          <a class="menu__item placeholder--email"> CONTACT US</a>
           <a class="menu__item menu__items--3D" data-button="quality"> QUALITY 0.5 </a>
         </div>
       </div>
@@ -210,7 +255,7 @@
         </div>
 
         <div class="trigger__info trigger__info--tails">
-          <p class="trigger__info__text"> ABOUT ME </p>
+          <p class="trigger__info__text"> ABOUT IETE </p>
           <div class="trigger__info__bg trigger__info__bg--tails"></div>
         </div>
       </div>
@@ -218,13 +263,15 @@
       <div class="heads__sections">
         <div class="heads__section heads__section--hello">
           <div class="part part--title hello__title">
-            <h1 class="text--white text--noMargin"> HELLO </h1>
+            <h1 class="text--white text--noMargin"> IETE</h1>
             <h1 class="text--white text--noMargin"> <span class="placeholder--agency placeholder--agency--capital"></span> </h1>
           </div>
           <div class="part part--smoke"
               data-0="transform:translate3d(0px, 0px, 0px)"
               data-800="transform:translate3d(0px, -300px, 0px)"></div>
         </div>
+      </div>
+      
 
         <div class="heads__section heads__section--beams">
           <div class="part part--beam--left"
@@ -245,9 +292,14 @@
           <div class="part part--title drop__title"
               data-1200="opacity:0"
               data-1500="opacity:1">
-            <h1 class="text--white text--right text--noMargin"> FROM </h1>
-            <h1 class="text--white text--right text--noMargin"> AN IDEA </h1>
-            </h1>
+              <h2 class="text--white text--center">About Us</h2>
+
+              <video id="about-video" class="video__tag" width="200" height="400" controls style="z-index: 100; opacity: 0; animation: fadeIn 2s ease-in-out 1s forwards;" 
+              src="./app/public/udaan.mp4">
+                Your browser does not support the video tag.
+              </video>
+
+              
           </div>
           <div class="part part--drop"
               data-1000="transform:translate3d(0px, 350px, 0px); opacity:0"
@@ -258,8 +310,10 @@
           <div class="part part--title ball__title"
               data-1700="opacity:0"
               data-2000="opacity:1">
-            <h1 class="text--white text--noMargin text--left"> GIVE </h1>
-            <h1 class="text--white text--noMargin text--left"> SHAPE </h1>
+            <h1 class="text--white text--noMargin text--left"> Overview: </h1>
+            <p class="text--white text--noMargin text--left"> To advance Science and Technology for Electronics, Telecommuncation, Computers, Information Technology and related areas
+
+            </p>
           </div>
           <div class="part part--sphere"
               data-1400="transform:translate3d(0px, -300px, 0px) rotate(60deg); opacity:0"
@@ -298,8 +352,8 @@
           <div class="part part--title face__title"
             data-3800="opacity:0"
             data-5000="opacity:1">
-              <h1 class="text--white text--left text--noMargin"> KEEP </h1>
-              <h1 class="text--white text--left text--noMargin"> TRYING </h1>
+              <h1 class="text--white text--left text--noMargin"> Aim: </h1>
+              <p class="text--white text--left text--noMargin"> To promote general advancement of electronics and telecommunication engineering and to foster technological innovation </p>
           </div>
           <div class="part part--face"
               data-4000="transform:translate3d(0px, 200px, 0px); opacity:0"
@@ -310,8 +364,9 @@
           <div class="part part--title rocks__title"
             data-5200="opacity:0"
             data-5800="opacity:1">
-              <h1 class="text--white text--noMargin"> KEEP </h1>
-              <h1 class="text--white text--noMargin"> LEARNING </h1>
+              <h1 class="text--white text--noMargin"> Vision: </h1>
+              <p class="text--white text--noMargin"> 
+                To make technology more simple, innovative and accessible to everyone and to create a scientific temper in every member. </p>
           </div>
           <div class="part part--rocks"
               data-5000="transform:translate3d(0px, 200px, 0px);"
@@ -322,8 +377,25 @@
           <div class="part part--title galaxy__title"
             data-5900="opacity:0"
             data-6500="opacity:1">
-              <h1 class="text--white text--noMargin"> WORK </h1>
-              <h1 class="text--white text--noMargin"> AS A TEAM </h1>
+              <!-- <h1 class="text--white text--noMargin"> WORK </h1>
+              <h1 class="text--white text--noMargin"> AS A TEAM </h1> -->
+              <div id="statscards" class="stats-cards" style="display: none; animation: fadeIn 2s ease-in-out 1s forwards;">
+                <div class="card">
+                  <i class="fas fa-clock icon"></i>
+                  <h2>2007</h2>
+                  <p>Since IETE-SPIT Started</p>
+                </div>
+                <div class="card">
+                  <i class="fas fa-users icon"></i>
+                  <h2>125,000+</h2>
+                  <p>Members</p>
+                </div>
+                <div class="card">
+                  <i class="fas fa-globe icon"></i>
+                  <h2>64+</h2>
+                  <p>Centres across the Globe</p>
+                </div>
+              </div>
           </div>
           <div class="part part--galaxy"
             data-5800="transform:translate3d(0px, -100px, 0px); opacity:0"
@@ -335,7 +407,24 @@
             data-6200="transform:translate3d(0px, 200px, 0px); opacity:0"
             data-6800="transform:translate3d(0px, 0px, 0px); opacity:1"
             ></div>
+
         </div>
+<div class="social-media" id="socialmedia" style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; opacity: 0; animation: fadeIn 2s ease-in-out 1s forwards;">
+  <a href="https://www.facebook.com/iete.spit/" target="_blank" class="social-media__link social-media__link--facebook" style="color: white; font-size: 40px;">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+  <a href="https://www.youtube.com/channel/UCvumRiXhsBVh3qzsOHis2kA" target="_blank" class="social-media__link social-media__link--youtube" style="color: white; font-size: 40px;">
+    <i class="fab fa-youtube"></i>
+  </a>
+  <a href="https://www.linkedin.com/company/iete-spit/?originalSubdomain=in" target="_blank" class="social-media__link social-media__link--linkedin" style="color: white; font-size: 40px;">
+    <i class="fab fa-linkedin-in"></i>
+  </a>
+  <a href="https://www.instagram.com/iete_spit/" target="_blank" class="social-media__link social-media__link--instagram" style="color: white; font-size: 40px;">
+    <i class="fab fa-instagram"></i>
+  </a>
+</div>
+
+        
 
         <div class="heads__section heads__section--end">
           <div class="part part--title end__title"
@@ -352,8 +441,8 @@
 
     <div class="tails">
       <div class="tails__section tails__section--about">
-        <h1 class="tails__section__el"> HELLO <span class="placeholder--agency placeholder--agency--capital"></span> </h1>
-        <h2 class="tails__section__el text--center">
+        <h1 class="tails__section__el"> IETE <span class="placeholder--agency placeholder--agency--capital"></span> </h1>
+        <!-- <h2 class="tails__section__el text--center">
           I'm V, a french creative / front end developer. <br/>
           And I want to work for you.
         </h2>
@@ -382,7 +471,7 @@
           <p>
             Valentin Marmonier
           </p>
-        </div>
+        </div> -->
       </div>
 
       <div class="tails__section tails__section--site">
@@ -462,14 +551,14 @@
           </div>
         </div>
 
-        <p>
+        <!-- <p>
           This is not really a portfolio, but my attempt at learning WebGL. <br>
           I wanted to learn WebGL for quite some time, especially after Internet Explorer started supporting it.
-        </p>
+        </p> -->
       </div>
 
       <div class="tails__section tails__section--skills">
-        <h1 class="tails__section__el"> MY SKILLS </h1>
+        <!-- <h1 class="tails__section__el"> MY SKILLS </h1>
         <h2 class="tails__section__el"> Javascript </h2>
         <div class="tails__section__el">
           <p>
@@ -515,7 +604,7 @@
             3D: Maya
           </p>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="trigger"></div>

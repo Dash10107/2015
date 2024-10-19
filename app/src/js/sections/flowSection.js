@@ -19,10 +19,9 @@ var field = new FlowField(points, {
   subsAmplitude: 50,
   subsNumber: 10
 });
-flowSection.add(field.el);
 
 var text = new TextPanel(
-  'F  O  L  L  O  W \n T  H  E    T  R  E  N  D  S',
+  'F  O  L  L  O  W \n US ON SOCIAL MEDIA',
   {
     align: 'center',
     style: '',
@@ -30,9 +29,23 @@ var text = new TextPanel(
     lineSpacing: 40
   }
 );
+
+var socialmediadiv = document.getElementById('socialmedia');
+
+socialmediadiv.style.position = 'absolute'; // Overlay on the scene
+socialmediadiv.style.zIndex = '100'; // Make sure it appears above the canvas
+socialmediadiv.style.display = 'none'; // Initially hidden
+
+// Center the div horizontally and place it just below the 3D text
+socialmediadiv.style.left = '50%'; // Move to the center horizontally
+socialmediadiv.style.transform = 'translateX(-50%) rotateY(0.4rad)';
+socialmediadiv.style.top = '55%'; // Adjust based on text size and padding (depends on your layout)
 text.el.position.z = -10;
 text.el.rotation.y = 0.4;
 flowSection.add(text.el);
+
+flowSection.add(socialmediadiv);
+
 
 field.el.visible = false;
 
@@ -50,21 +63,25 @@ flowSection.fieldIn = function () {
 
 flowSection.onIn(function () {
   text.in();
+  socialmediadiv.style.display = 'block';
 });
 
 flowSection.onOut(function (way) {
   text.out(way);
+   socialmediadiv.style.display = 'none';
 });
 
 flowSection.onStart(function () {
   field.start();
 
-  field.el.visible = true;
+
 });
 
 flowSection.onStop(function () {
-  field.stop();
+  field.el.visible = true;
 
+  field.stop();
+  socialmediadiv.style.display = 'none';
   field.el.visible = false;
 });
 

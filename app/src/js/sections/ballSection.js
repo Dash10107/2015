@@ -23,7 +23,7 @@ grid.el.position.x = -20;
 ballSection.add(grid.el);
 
 var text = new TextPanel(
-  'G  I  V  E \n S  H  A  P  E',
+  'Vision:',
   {
     align: 'left',
     style: '',
@@ -31,9 +31,23 @@ var text = new TextPanel(
     lineSpacing: 40
   }
 );
-text.el.position.set(15, 0, 15);
+text.el.position.set(0, 0, 15);
 text.el.rotation.y = -0.4;
 ballSection.add(text.el);
+
+var text2 = new TextPanel(
+  'To make technology more simple, innovative and accessible\n to everyone and to create a scientific temper in every member.',
+  {
+    align: 'center',
+    style: '',
+    size: 30,
+    lineSpacing: 40
+  }
+);
+text2.el.position.set(0, -5, 15);
+// text2.el.rotation.y = -0.4;
+ballSection.add(text2.el);
+
 
 ball.el.visible = false;
 grid.el.visible = false;
@@ -42,11 +56,13 @@ ballSection.onIn(function () {
   ball.in();
   grid.in();
   text.in();
+  text2.in();
 });
 
 ballSection.onOut(function (way) {
   text.out(way);
   grid.out(way);
+  text2.out(way);
 
   if (way === 'up') {
     ball.out();

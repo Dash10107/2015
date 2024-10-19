@@ -8,7 +8,7 @@ var LookAtField = require('../objects3D/LookAtFieldObject3D');
 var endSection = new Section('end');
 
 var text = new TextPanel(
-  'T  H  A  N  K  S \n F  O  R    W  A  T  C  H  I  N  G',
+  'I E T E  \n ki taraf se Dhanyawaad',
   {
     align: 'center',
     style: '',

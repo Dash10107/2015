@@ -199,12 +199,11 @@ jQuery(function () {
       rocksSection.start();
     }
     else if (to === 'galaxy') {
-      rocksSection.show();
 
       galaxySection.in(way);
       galaxySection.start();
 
-      gravitySection.show();
+      // gravitySection.show();
     }
     else if (to === 'gravity') {
       gravitySection.show();

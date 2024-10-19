@@ -21,7 +21,7 @@ function Title () {
     hki: './app/public/img/sprite-HKI.png',
     grouek: './app/public/img/sprite-grouek.png',
     mediamonks: './app/public/img/sprite-mediamonks.png',
-    none: './app/public/img/sprite-none.png',
+    none: './app/public/img/iete_sprite.png',
     soleilnoir: './app/public/img/sprite-soleilnoir.png',
     thread: './app/public/img/sprite-thread.png',
     ultranoir: './app/public/img/sprite-ultranoir.png'

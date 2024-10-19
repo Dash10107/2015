@@ -5,7 +5,8 @@ var Section = require('../classes/SectionClass');
 var Title = require('../objects3D/HelloTitleObject3D');
 var Smoke = require('../objects3D/SmokeObject3D');
 
-var helloSection = new Section('hello');
+// Change 'hello' to 'IETE'
+var helloSection = new Section('hello'); 
 
 var title = new Title();
 helloSection.add(title.el);
