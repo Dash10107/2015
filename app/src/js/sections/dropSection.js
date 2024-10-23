@@ -8,63 +8,151 @@ var Drop = require('../objects3D/DropObject3D');
 
 var dropSection = new Section('drop');
 
+// Drop object setup
 var drop = new Drop({ amplitude: 4 });
 drop.el.rotation.x = -1.2;
 drop.el.position.y = -10;
 dropSection.add(drop.el);
 
+// // Function to apply responsive styles
+// const applyResponsiveStyles = () => {
+//     const windowWidth = window.innerWidth;
+    
+//     if (windowWidth <= 768) {
+//         // Mobile styles
+//         statsContainer.style.top = '15%';
+//         statsContainer.style.left = '50%';
+//         statsContainer.style.transform = 'translate(-50%, -15%)';
+//         statsContainer.style.width = '95%';
+//         statsContainer.style.flexDirection = 'column';
+//         statsContainer.style.textAlign = 'center';
+//         statsContainer.style.fontSize = '1.2em';
+
+//         mission.style.top = '65%';
+//         mission.style.left = '50%';
+//         mission.style.transform = 'translate(-50%, -50%)';
+//         mission.style.width = '90%';
+//         mission.style.fontSize = '1.1em';
+//     } else {
+//         // Desktop styles
+//         statsContainer.style.top = '30%';
+//         statsContainer.style.left = '55%';
+//         statsContainer.style.transform = 'translate(-50%, -50%)';
+//         statsContainer.style.width = 'auto';
+//         statsContainer.style.flexDirection = 'row';
+
+//         mission.style.top = '65%';
+//         mission.style.left = '39%';
+//         mission.style.transform = 'translate(-50%, -50%)';
+//         mission.style.width = 'auto';
+//     }
+// };
+
+// Stats container setup
+var statsContainer = document.getElementById("statscards");
+statsContainer.style.position = 'absolute';
+statsContainer.style.top = '30%';
+// statsContainer.style.right = '-35%';
+statsContainer.style.left = '75%';
+statsContainer.style.transform = 'translate(-50%, -50%)';
+statsContainer.style.zIndex = 10;
+statsContainer.style.display = 'none';
+dropSection.add(statsContainer);
+
+// Mission container setup
+var mission = document.getElementById("missions");
+mission.style.position = 'absolute';
+mission.style.top = '65%';
+mission.style.left = '50%';
+mission.style.transform = 'translate(-50%, -50%)';
+mission.style.zIndex = 10;
+mission.style.display = 'none';
+dropSection.add(mission);
+
+// Text setup
 var text = new TextPanel(
-  'ABOUT US',
-  {
-    align: 'right',
-    style: '',
-    size: 50,
-    lineSpacing: 40
-  }
+    'ABOUT US',
+    {
+        align: 'right',
+        style: '',
+        size: 55,
+        lineSpacing: 40
+    }
 );
-text.el.position.set(0, 8, 0);
+text.el.position.set(-30, 5, 0);
 dropSection.add(text.el);
 
+// Counter functionality
+const runCounters = () => {
+    const counters = document.querySelectorAll('[class^="counter"]');
+    
+    counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const increment = target / 2000;
+        
+        const updateCounter = () => {
+            const count = +counter.innerText;
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(updateCounter, 1);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        
+        updateCounter();
+    });
+};
 
-var videodiv = document.getElementById('about-video');
+// Function to handle responsive changes
+const applyResponsiveStyles = () => {
+    const windowWidth = window.innerWidth;
 
-// Apply inline CSS to style and center the video
-videodiv.style.position = 'absolute'; // Overlay on the scene
-videodiv.style.top = '50%'; // Center vertically
-videodiv.style.left = '50%'; // Center horizontally
-videodiv.style.transform = 'translate(-50%, -50%)'; // Center properly using transform
-videodiv.style.width = '80%'; // Make the video div take 80% of the viewport width
-videodiv.style.zIndex = '100'; // Ensure it appears above the canvas
-videodiv.style.padding = '20px'; // Add padding around the video
-videodiv.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Dark background with transparency
-videodiv.style.borderRadius = '15px'; // Rounded corners
-videodiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)'; // Add a shadow effect
-videodiv.style.display = 'none'; // Initially hidden
-dropSection.add(videodiv);
-drop.el.visible = false;
+    if (windowWidth <= 480) {
+        // Apply mobile-specific styles
+        statsContainer.style.top = '25%';
+        text.el.position.set(0, 18, 0); // Adjust TextPanel position for 480px
+    } else {
+        // Apply default styles for larger screens
+        statsContainer.style.top = '30%';
+        text.el.position.set(-30, 5, 0); // Default TextPanel position
+    }
+};
 
+// Add an event listener to trigger on window resize or load
+window.addEventListener('resize', applyResponsiveStyles);
+window.addEventListener('load', applyResponsiveStyles);
+
+// Call the function once initially
+applyResponsiveStyles();
+
+
+// dropSection lifecycle events
 dropSection.onIn(function () {
-  drop.in();
-  text.in();
-  videodiv.style.display = 'block';
+    drop.in();
+    text.in();
+    statsContainer.style.display = 'flex';
+    mission.style.display = 'block';
+
+    // Run counters when the section becomes visible
+    runCounters();
 });
 
 dropSection.onOut(function (way) {
-  drop.out(way);
-  text.out(way);
-  videodiv.style.display = 'none';
+    drop.out(way);
+    text.out(way);
+    statsContainer.style.display = 'none';
+    mission.style.display = 'none';
 });
 
 dropSection.onStart(function () {
-  drop.start();
-
-  drop.el.visible = true;
+    drop.start();
+    drop.el.visible = true;
 });
 
 dropSection.onStop(function () {
-  drop.stop();
-
-  drop.el.visible = false;
+    drop.stop();
+    drop.el.visible = false;
 });
 
 module.exports = dropSection;

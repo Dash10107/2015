@@ -23,7 +23,7 @@ grid.el.position.x = -20;
 ballSection.add(grid.el);
 
 var text = new TextPanel(
-  'Vision:',
+  '',
   {
     align: 'left',
     style: '',
@@ -36,7 +36,7 @@ text.el.rotation.y = -0.4;
 ballSection.add(text.el);
 
 var text2 = new TextPanel(
-  'To make technology more simple, innovative and accessible\n to everyone and to create a scientific temper in every member.',
+  '',
   {
     align: 'center',
     style: '',

@@ -33,15 +33,18 @@ var text = new TextPanel(
 var socialmediadiv = document.getElementById('socialmedia');
 
 socialmediadiv.style.position = 'absolute'; // Overlay on the scene
-socialmediadiv.style.zIndex = '100'; // Make sure it appears above the canvas
+socialmediadiv.style.zIndex = '10'; // Make sure it appears above the canvas
 socialmediadiv.style.display = 'none'; // Initially hidden
 
 // Center the div horizontally and place it just below the 3D text
-socialmediadiv.style.left = '50%'; // Move to the center horizontally
-socialmediadiv.style.transform = 'translateX(-50%) rotateY(0.4rad)';
-socialmediadiv.style.top = '55%'; // Adjust based on text size and padding (depends on your layout)
+// socialmediadiv.style.left = '35%'; // Move to the center horizontally
+socialmediadiv.style.transform = 'translateX(-50%) rotateY(0.4)'; // Match the rotation with the text
+socialmediadiv.style.top = '50%'; // Adjust to align with the 3D text
+socialmediadiv.style.justifyContent = 'center';
+socialmediadiv.style.width = '100%';
+// Adjust based on text size and padding (depends on your layout)
 text.el.position.z = -10;
-text.el.rotation.y = 0.4;
+// text.el.rotation.y = 0.4;
 flowSection.add(text.el);
 
 flowSection.add(socialmediadiv);
@@ -63,7 +66,7 @@ flowSection.fieldIn = function () {
 
 flowSection.onIn(function () {
   text.in();
-  socialmediadiv.style.display = 'block';
+  socialmediadiv.style.display = 'flex';
 });
 
 flowSection.onOut(function (way) {

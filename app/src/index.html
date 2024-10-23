@@ -24,60 +24,353 @@
   <meta name="msapplication-TileColor" content="#2d89ef">
   <meta name="msapplication-TileImage" content="./app/public/favicons/mstile-144x144.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    @keyframes fadeIn {
-  0% {
-    opacity: 0;
+<style>
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  100% {
-    opacity: 1;
-  }
+/* Main container adjustments */
+#statscards, #missions {
+    position: relative; /* Changed to relative to avoid unexpected shifts */
+    margin: 0 auto; /* Center container */
+    width: 90%; /* Adjust width to fit within screen on mobile */
+    max-width: 1200px; /* Limit width on larger screens */
 }
 
+/* Grid Layout for Stats Cards */
 .stats-cards {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Adjust gap for better spacing */
+    padding: 10px;
 }
 
+/* General Card Styles */
 .card {
-  border: 1px solid white;
-  padding: 20px;
-  text-align: center;
-  color: white;
-  width: 200px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    overflow-wrap: break-word; /* Prevent long text overflow */
+}
+
+.card:hover {
+    transform: translateY(-5%);
 }
 
 .icon {
-  font-size: 50px;
-  margin-bottom: 10px;
+    font-size: 50px; /* Font size that adjusts well for smaller screens */
+    color: #2d1b3d;
+    margin-bottom: 10px;
 }
 
 .card h2 {
-  font-size: 30px;
-  margin: 10px 0;
+    color: #2d1b3d;
+    font-size: 24px;
+    margin: 10px 0;
+    position: relative;
+    word-wrap: break-word; /* Prevent text overflow */
+}
+
+.card h2::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: #ffa500;
+    margin: 10px auto;
 }
 
 .card p {
-  font-size: 16px;
-  font-weight: bold;
+    color: #444;
+    font-size: 18px;
+    font-weight: 500;
 }
 
+/* Mission Grid */
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ensure grid adapts */
+    gap: 20px;
+    padding: 10px;
+    margin-top: 20px;
+}
 
-  </style>
+.mission-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word; /* Prevent long text from breaking layout */
+}
+
+.mission-card h2 {
+    color: #2d1b3d;
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.mission-card h2::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: #ffa500;
+    margin: 5px auto;
+}
+
+.mission-card p {
+    color: #444;
+    line-height: 1.6;
+    font-size: 18px;
+    word-wrap: break-word; /* Prevent text overflow */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    /* Ensure stats and missions containers are responsive */
+    #statscards, #missions {
+        width: 100%;
+        padding: 10px;
+    }
+    #statscards{
+      top: 25%;
+
+    left: 70%;
+    }
+
+    .card {
+        /* width: 30%; */
+        padding: 10px;
+        position: relative;
+        left: -25%;
+        /* top: 20%; */
+    }
+
+    .icon {
+        font-size: 40px;
+    }
+
+    .card h2 {
+        font-size: 20px;
+    }
+
+    .card p {
+        font-size: 16px;
+    }
+
+    .mission-card {
+        padding: 5px;
+        width: 70%;
+        margin-left: 8%;
+        height: 90%;
+    }
+    .mission-card h2 {
+        font-size: 20px;
+    }
+
+    .mission-card p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Smaller screen adjustments */
+    .icon {
+        font-size: 35px;
+    }
+
+    .card h2, .mission-card h2 {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .card p, .mission-card p {
+        font-size: 12px;
+    }
+    
+}
+
+.loader {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  /* height: 100vh; Full screen height */
+}
+
+.loader-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loader__image {
+ margin-top: 10%;
+  width: 80%; /* Ensure image doesn't overflow */
+  /* height: auto; Keep aspect ratio */
+  /* height: 50%; */
+}
+
+@media screen and (max-width: 768px) {
+  .loader__image {
+    width: 60%; /* Reduce image size on smaller screens */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .loader__image {
+    width: 50%; /* Even smaller for very small screens */
+  }
+}
+          .social-media {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 2rem;
+              padding-top: 3rem;
+              background: linear-gradient(to right, rgba(45, 27, 61, 0.05), rgba(45, 27, 61, 0.1));
+              border-radius: 15px;
+              margin: 2rem auto;
+              /* max-width: 800px; */
+          }
+  
+          .social-media__link {
+              position: relative;
+              width: 70px;
+              height: 70px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              text-decoration: none;
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+              background: white;
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+          }
+  
+          .social-media__link i {
+              font-size: 28px;
+              transition: all 0.3s ease;
+          }
+  
+          /* Individual social media colors */
+          .social-media__link--facebook i {
+              color: #1877f2;
+          }
+  
+          .social-media__link--youtube i {
+              color: #ff0000;
+          }
+  
+          .social-media__link--linkedin i {
+              color: #0077b5;
+          }
+  
+          .social-media__link--instagram i {
+              color: #e4405f;
+          }
+  
+          /* Hover effects */
+          .social-media__link:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+          }
+  
+          .social-media__link::after {
+              content: '';
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              border: 2px solid transparent;
+              transition: all 0.3s ease;
+          }
+  
+          .social-media__link--facebook:hover::after {
+              border-color: #1877f2;
+          }
+  
+          .social-media__link--youtube:hover::after {
+              border-color: #ff0000;
+          }
+  
+          .social-media__link--linkedin:hover::after {
+              border-color: #0077b5;
+          }
+  
+          .social-media__link--instagram:hover::after {
+              border-color: #e4405f;
+          }
+  
+          /* Fade in animation */
+          @keyframes fadeIn {
+              from {
+                  opacity: 0;
+                  transform: translateY(20px);
+              }
+              to {
+                  opacity: 1;
+                  transform: translateY(0);
+              }
+          }
+  
+          .social-media {
+              opacity: 0;
+              animation: fadeIn 1s ease-out 0.5s forwards;
+          }
+  
+          /* Responsive design
+          /* @media (max-width: 768px) {
+              .social-media {
+                  gap: 1.5rem;
+                  padding: 2rem 1rem;
+              }
+  
+              .social-media__link {
+                  width: 60px;
+                  height: 60px;
+              }
+  
+              .social-media__link i {
+                  font-size: 24px;
+              }
+          } */ */
+  
+          /* @media (max-width: 480px) {
+              .social-media {
+                  gap: 1rem;
+              }
+  
+              .social-media__link {
+                  width: 50px;
+                  height: 50px;
+              }
+  
+              .social-media__link i {
+                  font-size: 20px;
+              }
+          } */
+</style>
 </head>
 <body>
-  <div class="loader">
-    <h3 class="text--center text--white loader__title is-active"> Welcome ...</h3>
+  <div class="loader" style="display: flex; justify-content: center;">
+    <div class="loader-logo">
+      <img src="./app/public/img/ietelogoblack2.png" alt="Loading..." class="loader__image" />
+  </div>
+  
     <div class="loader__progress"></div>
   </div>
 
   <script type="text/javascript">
-    document = window.document;
-
+    
     (function () {
       /* jshint strict: false */
       /* jshint laxbreak: true */
@@ -274,6 +567,10 @@
       
 
         <div class="heads__section heads__section--beams">
+          <video id="about-video" class="video__tag" width="200" height="400" controls style="z-index: 100; opacity: 0; animation: fadeIn 2s ease-in-out 1s forwards;" 
+          src="./app/public/udaan.mp4">
+            Your browser does not support the video tag.
+          </video>
           <div class="part part--beam--left"
               data-100="transform:translate3d(0px, 120px, 0px); opacity:0"
               data-500="opacity:0.1"
@@ -293,11 +590,42 @@
               data-1200="opacity:0"
               data-1500="opacity:1">
               <h2 class="text--white text--center">About Us</h2>
+              <div id="statscards" class="stats-cards">
+                <div class="card">
+                  <i class="fas fa-clock icon"></i>
+                  <h2 class="counter1" data-target="2007">0</h2>
+                  <p>Since IETE-SPIT Started</p>
+                </div>
+                <div class="card">
+                  <i class="fas fa-users icon"></i>
+                  <h2 class="counter2" data-target="125000">0</h2>
+                  <p>&nbsp;&nbsp;&nbsp;Members&nbsp;&nbsp;&nbsp;</p>
+                </div>
+                <div class="card">
+                  <i class="fas fa-globe icon"></i>
+                  <h2 class="counter3" data-target="64">0</h2>
+                  <p>Centres across the Globe</p>
+                </div>
+              </div>
 
-              <video id="about-video" class="video__tag" width="200" height="400" controls style="z-index: 100; opacity: 0; animation: fadeIn 2s ease-in-out 1s forwards;" 
-              src="./app/public/udaan.mp4">
-                Your browser does not support the video tag.
-              </video>
+              <div id="missions" class="container">
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <h2>Overview:</h2>
+                        <p>To advance Science and Technology for Electronics, Telecommuncation, Computers, Information Technology and related areas</p>
+                    </div>
+                    <div class="mission-card">
+                        <h2>Aim:</h2>
+                        <p>To promote general advancement of electronics and telecommunication engineering and to foster technological innovation</p>
+                    </div>
+                    <div class="mission-card">
+                        <h2>Vision:</h2>
+                        <p>To make technology more simple, innovative and accessible to everyone and to create a scientific temper in every member.</p>
+                    </div>
+                </div>
+            </div>
+              
+
 
               
           </div>
@@ -310,9 +638,7 @@
           <div class="part part--title ball__title"
               data-1700="opacity:0"
               data-2000="opacity:1">
-            <h1 class="text--white text--noMargin text--left"> Overview: </h1>
-            <p class="text--white text--noMargin text--left"> To advance Science and Technology for Electronics, Telecommuncation, Computers, Information Technology and related areas
-
+         
             </p>
           </div>
           <div class="part part--sphere"
@@ -352,9 +678,7 @@
           <div class="part part--title face__title"
             data-3800="opacity:0"
             data-5000="opacity:1">
-              <h1 class="text--white text--left text--noMargin"> Aim: </h1>
-              <p class="text--white text--left text--noMargin"> To promote general advancement of electronics and telecommunication engineering and to foster technological innovation </p>
-          </div>
+           </div>
           <div class="part part--face"
               data-4000="transform:translate3d(0px, 200px, 0px); opacity:0"
               data-5500="transform:translate3d(0px, 0px, 0px); opacity:1"></div>
@@ -364,10 +688,7 @@
           <div class="part part--title rocks__title"
             data-5200="opacity:0"
             data-5800="opacity:1">
-              <h1 class="text--white text--noMargin"> Vision: </h1>
-              <p class="text--white text--noMargin"> 
-                To make technology more simple, innovative and accessible to everyone and to create a scientific temper in every member. </p>
-          </div>
+              
           <div class="part part--rocks"
               data-5000="transform:translate3d(0px, 200px, 0px);"
               data-6000="transform:translate3d(0px, 100px, 0px);"></div>
@@ -379,23 +700,7 @@
             data-6500="opacity:1">
               <!-- <h1 class="text--white text--noMargin"> WORK </h1>
               <h1 class="text--white text--noMargin"> AS A TEAM </h1> -->
-              <div id="statscards" class="stats-cards" style="display: none; animation: fadeIn 2s ease-in-out 1s forwards;">
-                <div class="card">
-                  <i class="fas fa-clock icon"></i>
-                  <h2>2007</h2>
-                  <p>Since IETE-SPIT Started</p>
-                </div>
-                <div class="card">
-                  <i class="fas fa-users icon"></i>
-                  <h2>125,000+</h2>
-                  <p>Members</p>
-                </div>
-                <div class="card">
-                  <i class="fas fa-globe icon"></i>
-                  <h2>64+</h2>
-                  <p>Centres across the Globe</p>
-                </div>
-              </div>
+              
           </div>
           <div class="part part--galaxy"
             data-5800="transform:translate3d(0px, -100px, 0px); opacity:0"
@@ -409,21 +714,20 @@
             ></div>
 
         </div>
-<div class="social-media" id="socialmedia" style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; opacity: 0; animation: fadeIn 2s ease-in-out 1s forwards;">
-  <a href="https://www.facebook.com/iete.spit/" target="_blank" class="social-media__link social-media__link--facebook" style="color: white; font-size: 40px;">
-    <i class="fab fa-facebook-f"></i>
-  </a>
-  <a href="https://www.youtube.com/channel/UCvumRiXhsBVh3qzsOHis2kA" target="_blank" class="social-media__link social-media__link--youtube" style="color: white; font-size: 40px;">
-    <i class="fab fa-youtube"></i>
-  </a>
-  <a href="https://www.linkedin.com/company/iete-spit/?originalSubdomain=in" target="_blank" class="social-media__link social-media__link--linkedin" style="color: white; font-size: 40px;">
-    <i class="fab fa-linkedin-in"></i>
-  </a>
-  <a href="https://www.instagram.com/iete_spit/" target="_blank" class="social-media__link social-media__link--instagram" style="color: white; font-size: 40px;">
-    <i class="fab fa-instagram"></i>
-  </a>
-</div>
-
+        <div class="social-media" id="socialmedia">
+          <a href="https://www.facebook.com/iete.spit/" target="_blank" class="social-media__link social-media__link--facebook">
+              <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UCvumRiXhsBVh3qzsOHis2kA" target="_blank" class="social-media__link social-media__link--youtube">
+              <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/iete-spit/?originalSubdomain=in" target="_blank" class="social-media__link social-media__link--linkedin">
+              <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.instagram.com/iete_spit/" target="_blank" class="social-media__link social-media__link--instagram">
+              <i class="fab fa-instagram"></i>
+          </a>
+      </div>
         
 
         <div class="heads__section heads__section--end">
