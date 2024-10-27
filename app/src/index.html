@@ -39,6 +39,7 @@
     margin: 0 auto; /* Center container */
     width: 90%; /* Adjust width to fit within screen on mobile */
     max-width: 1200px; /* Limit width on larger screens */
+   
 }
 
 /* Grid Layout for Stats Cards */
@@ -105,22 +106,28 @@
     padding: 10px;
     margin-top: 20px;
 }
-
 .mission-card {
-    /* background: white; */
     color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     word-wrap: break-word; /* Prevent long text from breaking layout */
+    position: relative; /* For positioning the border */
+    overflow: hidden; /* Ensure border doesn't affect layout */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.mission-card:hover {
+    transform: scale(1.05); /* Zoom in effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
 }
 
 .mission-card h2 {
-    /* color: #2d1b3d; */
     color: white;
     font-size: 22px;
     margin-bottom: 10px;
     text-align: center;
+    position: relative; /* For positioning the pseudo element */
 }
 
 .mission-card h2::after {
@@ -130,14 +137,35 @@
     height: 3px;
     background: #fff;
     margin: 5px auto;
+    transition: width 0.3s ease; /* Smooth width transition */
+}
+
+.mission-card:hover h2::after {
+    width: 50px; /* Change the width on hover */
 }
 
 .mission-card p {
-    /* color: #444; */
     color: white;
     line-height: 1.6;
     font-size: 18px;
     word-wrap: break-word; /* Prevent text overflow */
+}
+
+/* Adding a border effect on hover */
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent; /* Initially transparent */
+    border-radius: 8px; /* Match the card's border radius */
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.mission-card:hover::before {
+    border-color: white; /* Change border color on hover */
 }
 
 /* Responsive Design */
@@ -338,37 +366,6 @@
               animation: fadeIn 1s ease-out 0.5s forwards;
           }
   
-          /* Responsive design
-          /* @media (max-width: 768px) {
-              .social-media {
-                  gap: 1.5rem;
-                  padding: 2rem 1rem;
-              }
-  
-              .social-media__link {
-                  width: 60px;
-                  height: 60px;
-              }
-  
-              .social-media__link i {
-                  font-size: 24px;
-              }
-          } */ */
-  
-          /* @media (max-width: 480px) {
-              .social-media {
-                  gap: 1rem;
-              }
-  
-              .social-media__link {
-                  width: 50px;
-                  height: 50px;
-              }
-  
-              .social-media__link i {
-                  font-size: 20px;
-              }
-          } */
 </style>
 </head>
 <body>
@@ -536,8 +533,8 @@
         <div class="menu__items">
           <a class="menu__item menu__items--3D" data-button="sounds"> MUTE </a>
           <a class="menu__item menu__items--3D" href="./index.html" data-button="help">Home </a>          
-          <a class="menu__item menu__items--3D" href="./events.html" data-button="help">Our Team </a>
-          <a class="menu__item placeholder--email"> CONTACT US</a>
+          <a class="menu__item menu__items--3D" href="./events.html" data-button="help">Events </a>
+          <a class="menu__item placeholder--email" href="./team.html"> Our Team</a>
           <a class="menu__item menu__items--3D" data-button="quality"> QUALITY 0.5 </a>
         </div>
       </div>

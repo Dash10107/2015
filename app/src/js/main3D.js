@@ -27,15 +27,16 @@ var beamsSection = require('./sections/beamsSection');
 var dropSection = require('./sections/dropSection');
 var ballSection = require('./sections/ballSection');
 var flowSection = require('./sections/flowSection');
-var neonsSection = require('./sections/neonsSection');
-var heightSection = require('./sections/heightSection');
-var waveSection = require('./sections/waveSection');
-var faceSection = require('./sections/faceSection');
-var rocksSection = require('./sections/rocksSection');
-var galaxySection = require('./sections/galaxySection');
-var gravitySection = require('./sections/gravitySection');
-var citySection = require('./sections/citySection');
+// var neonsSection = require('./sections/neonsSection');
+// var heightSection = require('./sections/heightSection');
+// var waveSection = require('./sections/waveSection');
+// var faceSection = require('./sections/faceSection');
+// var rocksSection = require('./sections/rocksSection');
+// var galaxySection = require('./sections/galaxySection');
+// var gravitySection = require('./sections/gravitySection');
+// var citySection = require('./sections/citySection');
 var endSection = require('./sections/endSection');
+var faceSection = require('./sections/faceSection');
 
 jQuery(function () {
   HASH.replacePlaceholders();
@@ -105,6 +106,7 @@ jQuery(function () {
     helloSection,
     beamsSection,
     dropSection,
+    faceSection,
     ballSection,
     flowSection,
     endSection
@@ -137,13 +139,28 @@ jQuery(function () {
       dropSection.in();
       dropSection.start();
     }
-    else if (to === 'ball') {
+    else if (to === 'face') { // New section transition
       dropSection.out('down');
       dropSection.start();
-  
+
+      faceSection.in();
+      faceSection.start();
+      const statsContainer = document.querySelector('.statsContainer');
+  if (statsContainer) {
+    statsContainer.style.opacity = '0'; // Ensure it starts from invisible
+    statsContainer.classList.add('fadeIn'); // Add animation class
+    setTimeout(() => {
+      statsContainer.style.opacity = '1'; // Set opacity to 1 after animation starts
+    }, 500); 
+    }
+    }
+    else if (to === 'ball') {
+      faceSection.out(way); // Ensure faceSection exits correctly
+      faceSection.start();
+
       ballSection.in();
       ballSection.start();
-  
+
       flowSection.fieldIn();
       flowSection.start();
     }
@@ -165,6 +182,10 @@ jQuery(function () {
     }
     else if (from === 'drop') {
       dropSection.out(way);
+    }
+    else if (from === 'face') { // Ensure faceSection exits correctly
+      faceSection.out(way);
+
     }
     else if (from === 'ball') {
       ballSection.out(way);
@@ -202,13 +223,33 @@ jQuery(function () {
         beamsSection.stop();
       }
     }
+
     else if (from === 'drop') {
       if (to !== 'hello' && to !== 'beams') {
         beamsSection.stop();
       }
+
   
       if (to !== 'ball') {
         dropSection.stop();
+      }
+    }
+    else if (from === 'drop') {
+      if (to !== 'hello' && to !== 'beams') {
+        beamsSection.stop();
+      }
+
+      if (to !== 'face') { // Stop drop section if going to face
+        dropSection.stop();
+      }
+    }
+    else if (from === 'face') {
+      if (to !== 'drop') {
+        dropSection.stop();
+      }
+
+      if (to !== 'ball') { // Ensure faceSection stops if not going to ball
+        faceSection.stop();
       }
     }
     else if (from === 'ball') {

@@ -26,7 +26,7 @@ var Wireframe = require('./objects2D/WireframeObject2D');
 var neonsSection = require('./sections/neonsSection');
 var heightSection = require('./sections/heightSection');
 var waveSection = require('./sections/waveSection');
-var faceSection = require('./sections/faceSection');
+
 var rocksSection = require('./sections/rocksSection');
 var galaxySection = require('./sections/galaxySection');
 var gravitySection = require('./sections/gravitySection');
@@ -99,7 +99,7 @@ jQuery(function () {
     neonsSection,
     heightSection,
     waveSection,
-    faceSection,
+    // faceSection,
     rocksSection,
     galaxySection,
     gravitySection,
@@ -128,10 +128,10 @@ jQuery(function () {
       faceSection.start();
       rocksSection.show();
     }
-    else if (to === 'rocks') {
-      rocksSection.in();
-      rocksSection.start();
-    }
+    // else if (to === 'rocks') {
+    //   rocksSection.in();
+    //   rocksSection.start();
+    // }
     else if (to === 'galaxy') {
       galaxySection.in();
       galaxySection.start();
@@ -160,9 +160,9 @@ jQuery(function () {
     else if (from === 'wave') {
       waveSection.stop();
     }
-    else if (from === 'face') {
-      faceSection.stop();
-    }
+    // else if (from === 'face') {
+    //   faceSection.stop();
+    // }
     else if (from === 'rocks') {
       rocksSection.stop();
     }

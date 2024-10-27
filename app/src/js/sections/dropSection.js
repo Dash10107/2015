@@ -14,55 +14,13 @@ drop.el.rotation.x = -1.2;
 drop.el.position.y = -10;
 dropSection.add(drop.el);
 
-// // Function to apply responsive styles
-// const applyResponsiveStyles = () => {
-//     const windowWidth = window.innerWidth;
-    
-//     if (windowWidth <= 768) {
-//         // Mobile styles
-//         statsContainer.style.top = '15%';
-//         statsContainer.style.left = '50%';
-//         statsContainer.style.transform = 'translate(-50%, -15%)';
-//         statsContainer.style.width = '95%';
-//         statsContainer.style.flexDirection = 'column';
-//         statsContainer.style.textAlign = 'center';
-//         statsContainer.style.fontSize = '1.2em';
 
-//         mission.style.top = '65%';
-//         mission.style.left = '50%';
-//         mission.style.transform = 'translate(-50%, -50%)';
-//         mission.style.width = '90%';
-//         mission.style.fontSize = '1.1em';
-//     } else {
-//         // Desktop styles
-//         statsContainer.style.top = '30%';
-//         statsContainer.style.left = '55%';
-//         statsContainer.style.transform = 'translate(-50%, -50%)';
-//         statsContainer.style.width = 'auto';
-//         statsContainer.style.flexDirection = 'row';
 
-//         mission.style.top = '65%';
-//         mission.style.left = '39%';
-//         mission.style.transform = 'translate(-50%, -50%)';
-//         mission.style.width = 'auto';
-//     }
-// };
-
-// Stats container setup
-var statsContainer = document.getElementById("statscards");
-statsContainer.style.position = 'absolute';
-statsContainer.style.top = '30%';
-// statsContainer.style.right = '-35%';
-statsContainer.style.left = '75%';
-statsContainer.style.transform = 'translate(-50%, -50%)';
-statsContainer.style.zIndex = 10;
-statsContainer.style.display = 'none';
-dropSection.add(statsContainer);
 
 // Mission container setup
 var mission = document.getElementById("missions");
 mission.style.position = 'absolute';
-mission.style.top = '65%';
+mission.style.top = '50%';
 mission.style.left = '50%';
 mission.style.transform = 'translate(-50%, -50%)';
 mission.style.zIndex = 10;
@@ -79,30 +37,9 @@ var text = new TextPanel(
         lineSpacing: 40
     }
 );
-text.el.position.set(-30, 5, 0);
+text.el.position.set(0, 18, 0);
 dropSection.add(text.el);
 
-// Counter functionality
-const runCounters = () => {
-    const counters = document.querySelectorAll('[class^="counter"]');
-    
-    counters.forEach(counter => {
-        const target = +counter.getAttribute('data-target');
-        const increment = target / 2000;
-        
-        const updateCounter = () => {
-            const count = +counter.innerText;
-            if (count < target) {
-                counter.innerText = Math.ceil(count + increment);
-                setTimeout(updateCounter, 1);
-            } else {
-                counter.innerText = target;
-            }
-        };
-        
-        updateCounter();
-    });
-};
 
 // Function to handle responsive changes
 const applyResponsiveStyles = () => {
@@ -110,12 +47,12 @@ const applyResponsiveStyles = () => {
 
     if (windowWidth <= 480) {
         // Apply mobile-specific styles
-        statsContainer.style.top = '25%';
+        // statsContainer.style.top = '25%';
         text.el.position.set(0, 18, 0); // Adjust TextPanel position for 480px
     } else {
         // Apply default styles for larger screens
-        statsContainer.style.top = '30%';
-        text.el.position.set(-30, 5, 0); // Default TextPanel position
+        // statsContainer.style.top = '30%';
+        text.el.position.set(0, 10, 0); // Default TextPanel position
     }
 };
 
@@ -131,17 +68,22 @@ applyResponsiveStyles();
 dropSection.onIn(function () {
     drop.in();
     text.in();
-    statsContainer.style.display = 'flex';
+    // statsContainer.style.display = 'flex';
     mission.style.display = 'block';
+    mission.style.opacity = '0'; // Ensure it starts from invisible
+    mission.classList.add('fadeIn'); // Add animation class
+    setTimeout(() => {
+     mission.style.opacity = '1'; // Set opacity to 1 after animation starts
+    }, 1000); 
 
     // Run counters when the section becomes visible
-    runCounters();
+    // runCounters();
 });
 
 dropSection.onOut(function (way) {
     drop.out(way);
     text.out(way);
-    statsContainer.style.display = 'none';
+    // statsContainer.style.display = 'none';
     mission.style.display = 'none';
 });
 
