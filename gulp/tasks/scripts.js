@@ -49,6 +49,15 @@ gulp.task('scripts:3D', function () {
   );
 });
 
+gulp.task('scripts:3DEvents', function () {
+  scripts(
+    './app/src/js/main3DEvents.js',
+    './app/dist/js/3D/mainEvents.js',
+    'Scripts 3D Events'
+  );
+});
+
+
 gulp.task('scripts:2D', function () {
   scripts(
     './app/src/js/main2D.js',
@@ -57,4 +66,4 @@ gulp.task('scripts:2D', function () {
   );
 });
 
-gulp.task('scripts', ['scripts:2D', 'scripts:3D']);
+gulp.task('scripts', ['scripts:2D', 'scripts:3D','scripts:3DEvents']);
