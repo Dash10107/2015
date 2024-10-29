@@ -272,8 +272,8 @@ jQuery(function () {
   });
   
   SCENE.on('end', function () {
-    SCENE.lock();
-    APP.slide(SCENE.unlock);
+    // SCENE.lock();
+    // APP.slide(SCENE.unlock);
   });
 
   // map
@@ -292,38 +292,38 @@ jQuery(function () {
   });
 
   // tails
-  var wireframe = new Wireframe(jQuery('.wireframe'));
+  // var wireframe = new Wireframe(jQuery('.wireframe'));
 
-  var $tailsSections = jQuery('.tails__section');
-  $tailsSections.find('.tails__section__el').animate({ opacity: 0, y: 100 }, 0);
+  // var $tailsSections = jQuery('.tails__section');
+  // $tailsSections.find('.tails__section__el').animate({ opacity: 0, y: 100 }, 0);
 
-  var waypoint = $tailsSections.waypoint({
-    $viewport: jQuery('.tails'),
-    offset: 30
-  });
+  // var waypoint = $tailsSections.waypoint({
+  //   $viewport: jQuery('.tails'),
+  //   offset: 30
+  // });
 
-  $tailsSections.on('active', function () {
-    var $el = jQuery(this);
+  // $tailsSections.on('active', function () {
+  //   var $el = jQuery(this);
     
-    if ($el.attr('data-appeared')) {
-      return false;
-    }
+  //   if ($el.attr('data-appeared')) {
+  //     return false;
+  //   }
 
-    jQuery(this).find('.tails__section__el').each(function (i) {
-      jQuery(this).stop().delay(i * 100).animate({ opacity: 1, y: 0 }, 500);
-    });
+  //   jQuery(this).find('.tails__section__el').each(function (i) {
+  //     jQuery(this).stop().delay(i * 100).animate({ opacity: 1, y: 0 }, 500);
+  //   });
 
-    $el.attr('data-appeared', true);
-  });
+  //   $el.attr('data-appeared', true);
+  // });
 
-  jQuery('.tails__section--site').on('stateChange', function (e, state) {
-    if (state === 'active') {
-      wireframe.start();
-      wireframe.in();
-    } else {
-      wireframe.stop();
-    }
-  });
+  // jQuery('.tails__section--site').on('stateChange', function (e, state) {
+  //   if (state === 'active') {
+  //     wireframe.start();
+  //     wireframe.in();
+  //   } else {
+  //     wireframe.stop();
+  //   }
+  // });
 
   APP.on('slideBegin', function () {
     if (this.to === 'heads') {
@@ -341,9 +341,9 @@ jQuery(function () {
   });
 
   APP.on('slideComplete', function () {
-    if (this.to === 'tails') {
-      waypoint.start();
-    }
+    // if (this.to === 'tails') {
+    //   waypoint.start();
+    // }
   });
  
   // SCENE on/off

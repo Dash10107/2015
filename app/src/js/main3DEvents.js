@@ -111,28 +111,31 @@ jQuery(function () {
     var to = this.to.name;
 
     if (to === 'neons') {
-      neonsSection.start();
-      neonsSection.smokeStart();
+      // neonsSection.start();
+      // neonsSection.smokeStart();
       heightSection.show();
     }
     else if (to === 'height') {
+    
       heightSection.in();
+
       heightSection.start();
     }
     else if (to === 'wave') {
       waveSection.in();
       waveSection.start();
     }
-    else if (to === 'face') {
-      faceSection.in();
-      faceSection.start();
-      rocksSection.show();
-    }
+    // else if (to === 'face') {
+    //   faceSection.in();
+    //   faceSection.start();
+    //   rocksSection.show();
+    // }
     // else if (to === 'rocks') {
     //   rocksSection.in();
     //   rocksSection.start();
     // }
     else if (to === 'galaxy') {
+      waveSection.onOut();
       galaxySection.in();
       galaxySection.start();
     }
@@ -158,6 +161,7 @@ jQuery(function () {
       heightSection.stop();
     }
     else if (from === 'wave') {
+     waveSection.onOut();
       waveSection.stop();
     }
     // else if (from === 'face') {
@@ -175,8 +179,8 @@ jQuery(function () {
   });
 
   SCENE.on('end', function () {
-    SCENE.lock();
-    APP.slide(SCENE.unlock);
+    // SCENE.lock();
+    // APP.slide(SCENE.unlock);
   });
 
   var map = SCENE.getMap();

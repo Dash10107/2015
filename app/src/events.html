@@ -25,339 +25,95 @@
   <meta name="msapplication-TileImage" content="./app/public/favicons/mstile-144x144.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-/* Main container adjustments */
-#statscards, #missions {
-    position: relative; /* Changed to relative to avoid unexpected shifts */
-    margin: 0 auto; /* Center container */
-    width: 90%; /* Adjust width to fit within screen on mobile */
-    max-width: 1200px; /* Limit width on larger screens */
-}
-
-/* Grid Layout for Stats Cards */
-.stats-cards {
+/* Container to hold the grid */
+.gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
-    gap: 20px; /* Adjust gap for better spacing */
-    padding: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/* General Card Styles */
-.card {
-    background: white;
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    overflow-wrap: break-word; /* Prevent long text overflow */
-}
-
-.card:hover {
-    transform: translateY(-5%);
-}
-
-.icon {
-    font-size: 50px; /* Font size that adjusts well for smaller screens */
-    color: #2d1b3d;
-    margin-bottom: 10px;
-}
-
-.card h2 {
-    color: #2d1b3d;
-    font-size: 24px;
-    margin: 10px 0;
+.gallery img {
+    width: 100%;
+    /* height: 300px; */
+    height: 200%;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     position: relative;
-    word-wrap: break-word; /* Prevent text overflow */
+    cursor: pointer;
 }
 
-.card h2::after {
+.gallery img:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Add a subtle overlay on hover */
+.gallery img::after {
     content: '';
-    display: block;
-    width: 30px;
-    height: 3px;
-    background: #ffa500;
-    margin: 10px auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.1),
+        rgba(255, 255, 255, 0.1)
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 12px;
 }
 
-.card p {
-    color: #444;
-    font-size: 18px;
-    font-weight: 500;
+.gallery img:hover::after {
+    opacity: 1;
 }
 
-/* Mission Grid */
-.mission-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ensure grid adapts */
-    gap: 20px;
-    padding: 10px;
-    margin-top: 20px;
-}
-
-.mission-card {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    word-wrap: break-word; /* Prevent long text from breaking layout */
-}
-
-.mission-card h2 {
-    color: #2d1b3d;
-    font-size: 22px;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.mission-card h2::after {
-    content: '';
-    display: block;
-    width: 30px;
-    height: 3px;
-    background: #ffa500;
-    margin: 5px auto;
-}
-
-.mission-card p {
-    color: #444;
-    line-height: 1.6;
-    font-size: 18px;
-    word-wrap: break-word; /* Prevent text overflow */
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    /* Ensure stats and missions containers are responsive */
-    #statscards, #missions {
-        width: 100%;
-        padding: 10px;
-    }
-    #statscards{
-      top: 25%;
-
-    left: 70%;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
     }
 
-    .card {
-        /* width: 30%; */
-        padding: 10px;
-        position: relative;
-        left: -25%;
-        /* top: 20%; */
-    }
-
-    .icon {
-        font-size: 40px;
-    }
-
-    .card h2 {
-        font-size: 20px;
-    }
-
-    .card p {
-        font-size: 16px;
-    }
-
-    .mission-card {
-        padding: 5px;
-        width: 70%;
-        margin-left: 8%;
-        height: 90%;
-    }
-    .mission-card h2 {
-        font-size: 20px;
-    }
-
-    .mission-card p {
-        font-size: 16px;
+    .gallery img {
+        height: 250px;
     }
 }
 
-@media screen and (max-width: 480px) {
-    /* Smaller screen adjustments */
-    .icon {
-        font-size: 35px;
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0.5rem;
     }
 
-    .card h2, .mission-card h2 {
-        font-size: 16px;
-        text-align: center;
+    .gallery img {
+        height: 200px;
     }
+}
 
-    .card p, .mission-card p {
-        font-size: 12px;
+/* Optional: Add fade-in animation when images load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-    
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.loader {
-  /* display: flex; */
-  justify-content: center;
-  align-items: center; /* Center vertically */
-  /* height: 100vh; Full screen height */
+.gallery img {
+    animation: fadeIn 0.6s ease-out forwards;
 }
-
-.loader-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.loader__image {
- margin-top: 10%;
-  width: 80%; /* Ensure image doesn't overflow */
-  /* height: auto; Keep aspect ratio */
-  /* height: 50%; */
-}
-
-@media screen and (max-width: 768px) {
-  .loader__image {
-    width: 60%; /* Reduce image size on smaller screens */
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .loader__image {
-    width: 50%; /* Even smaller for very small screens */
-  }
-}
-          .social-media {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              gap: 2rem;
-              padding-top: 3rem;
-              background: linear-gradient(to right, rgba(45, 27, 61, 0.05), rgba(45, 27, 61, 0.1));
-              border-radius: 15px;
-              margin: 2rem auto;
-              /* max-width: 800px; */
-          }
-  
-          .social-media__link {
-              position: relative;
-              width: 70px;
-              height: 70px;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              text-decoration: none;
-              transition: transform 0.3s ease, box-shadow 0.3s ease;
-              background: white;
-              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-          }
-  
-          .social-media__link i {
-              font-size: 28px;
-              transition: all 0.3s ease;
-          }
-  
-          /* Individual social media colors */
-          .social-media__link--facebook i {
-              color: #1877f2;
-          }
-  
-          .social-media__link--youtube i {
-              color: #ff0000;
-          }
-  
-          .social-media__link--linkedin i {
-              color: #0077b5;
-          }
-  
-          .social-media__link--instagram i {
-              color: #e4405f;
-          }
-  
-          /* Hover effects */
-          .social-media__link:hover {
-              transform: translateY(-5px);
-              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-          }
-  
-          .social-media__link::after {
-              content: '';
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              border-radius: 50%;
-              border: 2px solid transparent;
-              transition: all 0.3s ease;
-          }
-  
-          .social-media__link--facebook:hover::after {
-              border-color: #1877f2;
-          }
-  
-          .social-media__link--youtube:hover::after {
-              border-color: #ff0000;
-          }
-  
-          .social-media__link--linkedin:hover::after {
-              border-color: #0077b5;
-          }
-  
-          .social-media__link--instagram:hover::after {
-              border-color: #e4405f;
-          }
-  
-          /* Fade in animation */
-          @keyframes fadeIn {
-              from {
-                  opacity: 0;
-                  transform: translateY(20px);
-              }
-              to {
-                  opacity: 1;
-                  transform: translateY(0);
-              }
-          }
-  
-          .social-media {
-              opacity: 0;
-              animation: fadeIn 1s ease-out 0.5s forwards;
-          }
-  
-          /* Responsive design
-          /* @media (max-width: 768px) {
-              .social-media {
-                  gap: 1.5rem;
-                  padding: 2rem 1rem;
-              }
-  
-              .social-media__link {
-                  width: 60px;
-                  height: 60px;
-              }
-  
-              .social-media__link i {
-                  font-size: 24px;
-              }
-          } */ */
-  
-          /* @media (max-width: 480px) {
-              .social-media {
-                  gap: 1rem;
-              }
-  
-              .social-media__link {
-                  width: 50px;
-                  height: 50px;
-              }
-  
-              .social-media__link i {
-                  font-size: 20px;
-              }
-          } */
 </style>
 </head>
 <body>
@@ -529,8 +285,8 @@ jsPayload.src = './app/dist/js/' + prefix + (isEventsPage ? '/bundleEvents.js' :
           <a class="menu__item menu__items--3D" data-button="sounds"> MUTE </a>
           <a class="menu__item menu__items--3D" href="./index.html" data-button="help">Home </a>          
           <a class="menu__item menu__items--3D" href="./events.html" data-button="help">Events </a>
-          <a class="menu__item placeholder--email" href="./team.html"> Our Team</a>
-           <a class="menu__item menu__items--3D" data-button="quality"> QUALITY 0.5 </a>
+          <a class="menu__item menu__items--3D" href="./team.html"> Our Team</a>
+          <a class="menu__item menu__items--3D" data-button="quality"> QUALITY 0.5 </a>
         </div>
       </div>
 
@@ -571,10 +327,15 @@ jsPayload.src = './app/dist/js/' + prefix + (isEventsPage ? '/bundleEvents.js' :
       
 
         <div class="heads__section heads__section--beams">
-          <video id="about-video" class="video__tag" width="200" height="400" controls style="z-index: 100; opacity: 0; animation: fadeIn 2s ease-in-out 1s forwards;" 
-          src="./app/public/udaan.mp4">
-            Your browser does not support the video tag.
-          </video>
+         
+          <div id="gallery" class="gallery-container">
+            <div  class="gallery">
+                <img src="./app/public/img/bugbuster3.jpg" alt="Bug Busters Event Photo 4">
+                <img src="./app/public/img/bugbuster1.jpg" alt="Bug Busters Event Photo 1">
+                <img src="./app/public/img/bugbuster2.jpg" alt="Bug Busters Event Photo 2">
+                <img src="./app/public/img/bugbuster3.jpg" alt="Bug Busters Event Photo 3">
+            </div>
+        </div>
           <div class="part part--beam--left"
               data-100="transform:translate3d(0px, 120px, 0px); opacity:0"
               data-500="opacity:0.1"
@@ -747,173 +508,9 @@ jsPayload.src = './app/dist/js/' + prefix + (isEventsPage ? '/bundleEvents.js' :
       </div>
     </div>
 
-    <div class="tails">
-      <div class="tails__section tails__section--about">
-        <h1 class="tails__section__el"> IETE <span class="placeholder--agency placeholder--agency--capital"></span> </h1>
-        <!-- <h2 class="tails__section__el text--center">
-          I'm V, a french creative / front end developer. <br/>
-          And I want to work for you.
-        </h2>
-        <div class="tails__section__el">
-          <p>
-            I love to experiment, iterate and build premium experiences.
-          </p>
-          <p>
-            I studied graphic design for a few years, and then started coding, at first to enrich my reflection and get a better understanding of how a project is conducted, but soon for the thrill of it.
-          </p>
-          <p>
-            After working in Shanghai for more than a year as a web developer, it's time for a change. I'm looking to work for an agency with curious, dynamic and innovative people, and I think <span class="placeholder--agency placeholder--agency--you"></span> can be the one for me.
-          </p>
-          <p>
-            To conclude, I am a hardworker with team spirit, creative, curious, and eager to learn new things.
-          </p>
-          <p>
-            I'm of course available for any questions you might have. You can contact me at valentin.marmonier@gmail.com
-          </p>
-          <div class="text--center">
-            <a class="tails__link placeholder--email"> Contact me </a>
-          </div>
-          <p>
-            Thank you in advance for your time.
-          </p>
-          <p>
-            Valentin Marmonier
-          </p>
-        </div> -->
-      </div>
+    
 
-      <div class="tails__section tails__section--site">
-        <h1 class="tails__section__el"> ABOUT THIS WEBSITE </h1>
-
-        <div class="wireframe">
-          <div class="wireframe__page">
-            <div class="wireframe__frame--left"></div>
-            <div class="wireframe__frame--right"></div>
-            <div class="wireframe__frame--top"></div>
-            <div class="wireframe__frame--bottom"></div>
-            <div class="wireframe__column wireframe__column--left">
-              <div class="wireframe__picture wireframe__picture--tall">
-                <div class="wireframe__frame--left"></div>
-                <div class="wireframe__frame--right"></div>
-                <div class="wireframe__frame--top"></div>
-                <div class="wireframe__frame--bottom"></div>
-                <div class="wireframe__controls">
-                  <div class="wireframe__controls__node"></div>
-                  <div class="wireframe__controls__node"></div>
-                  <div class="wireframe__controls__node"></div>
-                  <div class="wireframe__controls__node"></div>
-                </div>
-              </div>
-              <div class="wireframe__break"></div>
-              <div class="wireframe__picture wireframe__picture--left">
-                <div class="wireframe__frame--left"></div>
-                <div class="wireframe__frame--right"></div>
-                <div class="wireframe__frame--top"></div>
-                <div class="wireframe__frame--bottom"></div>
-              </div>
-              <div class="wireframe__text wireframe__text--right">
-                <div class="wireframe__text__line"></div>
-                <div class="wireframe__text__line"></div>
-                <div class="wireframe__text__line wireframe__text__line--incomplete"></div>
-              </div>
-              <div class="wireframe__break"></div>
-              <div class="wireframe__text">
-                <div class="wireframe__text__line"></div>
-                <div class="wireframe__text__line"></div>
-                <div class="wireframe__text__line wireframe__text__line--incomplete"></div>
-              </div>
-              <div class="wireframe__break"></div>
-              <div class="wireframe__picture wireframe__picture--right">
-                <div class="wireframe__frame--left"></div>
-                <div class="wireframe__frame--right"></div>
-                <div class="wireframe__frame--top"></div>
-                <div class="wireframe__frame--bottom"></div>
-              </div>
-              <div class="wireframe__text wireframe__text--left">
-                <div class="wireframe__text__line"></div>
-                <div class="wireframe__text__line"></div>
-                <div class="wireframe__text__line wireframe__text__line--incomplete"></div>
-              </div>
-            </div>
-            <div class="wireframe__column wireframe__column--right">
-              <div class="wireframe__picture">
-                <div class="wireframe__frame--left"></div>
-                <div class="wireframe__frame--right"></div>
-                <div class="wireframe__frame--top"></div>
-                <div class="wireframe__frame--bottom"></div>
-              </div>
-              <div class="wireframe__break"></div>
-              <div class="wireframe__text">
-                <div class="wireframe__text__line"></div>
-                <div class="wireframe__text__line"></div>
-                <div class="wireframe__text__line wireframe__text__line--incomplete"></div>
-              </div>
-              <div class="wireframe__break"></div>
-              <div class="wireframe__picture wireframe__picture--tall">
-                <div class="wireframe__frame--left"></div>
-                <div class="wireframe__frame--right"></div>
-                <div class="wireframe__frame--top"></div>
-                <div class="wireframe__frame--bottom"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- <p>
-          This is not really a portfolio, but my attempt at learning WebGL. <br>
-          I wanted to learn WebGL for quite some time, especially after Internet Explorer started supporting it.
-        </p> -->
-      </div>
-
-      <div class="tails__section tails__section--skills">
-        <!-- <h1 class="tails__section__el"> MY SKILLS </h1>
-        <h2 class="tails__section__el"> Javascript </h2>
-        <div class="tails__section__el">
-          <p>
-            ES5 / ES6 <br>
-            Node.js <br>
-            Coffeescript <br>
-            Typescript
-          </p>
-          <p> 
-            <span> Make life easier: </span> jQuery, Zepto, underscore.js <br>
-            <span> WebGL: </span> Three.js <br>
-            <span> Canvas: </span> paper.js, D3.js <br>
-            <span> Animation: </span> TweenLite / TweenMax, Velocity.js <br>
-            <span> MV* Frameworks: </span> Backbone.js, AngularJS, React <br>
-            <span> Package manager: </span> Npm, Bower <br>
-            <span> Dependencies injection: </span> AMD (requirejs), CommonJS (browserify) <br>
-            <span> build tools: </span> Grunt, Gulp, Make <br>
-            <span> features detection: </span> Modernizr <br>
-            <span> Tests: </span> Jasmine, PhantomJS
-          </p>
-        </div>
-
-        <h2 class="tails__section__el"> HTML / CSS </h2>
-        <div class="tails__section__el">
-            <p>
-            HTML5 / CSS3 <br>
-            SVG
-          </p>
-          <p>
-            Preprocessors: LESS, SASS <br>
-            Modular: SMACSS, BEM
-          </p>
-        </div>
-        <h2 class="tails__section__el"> Misc </h2>
-        <div class="tails__section__el">
-          <p>
-            PHP: Cake PHP, Wordpress <br>
-            Python &amp; Ruby <br>
-            Version control: Git, SVN <br>
-            I care about the elders: Polyfills and fallbacks for older browsers <br>
-            Design patterns: MV*, Pubsub, Modules, Singleton, Decorator, ... <br>
-            Adobe creative suite: Photoshop, Illustrator, InDesign, ... <br>
-            3D: Maya
-          </p>
-        </div>
-      </div> -->
-    </div>
+  
 
     <div class="trigger"></div>
   </div>

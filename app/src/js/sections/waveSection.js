@@ -11,7 +11,7 @@ var wave = new Wave();
 waveSection.add(wave.el);
 
 var text = new TextPanel(
-  'Aim:',
+  'Bug Busters',
   {
     align: 'center',
     style: '',
@@ -22,17 +22,15 @@ var text = new TextPanel(
 text.el.position.y = 10;
 text.el.rotation.x = 0.2;
 waveSection.add(text.el);
-var text2 = new TextPanel(
-  'To promote general advancement of electronics and telecommunication engineering\n and to foster technological innovation',
-  {
-    align: 'center',
-    style: '',
-    size: 30,  // Slightly smaller font size for the overview heading
-    lineSpacing: 40
-  }
-);
-text2.el.position.set(0, -3, 0); // Position this panel slightly lower
-waveSection.add(text2.el);
+
+var gallery = document.getElementById("gallery");
+gallery.style.position = 'absolute';
+gallery.style.top = '50%';
+gallery.style.left = '50%';
+gallery.style.transform = 'translate(-50%, -50%)';
+gallery.style.zIndex = 10;
+gallery.style.display = 'none';
+waveSection.add(gallery);
 
 
 
@@ -40,25 +38,26 @@ wave.el.visible = false;
 
 waveSection.onIn(function (way) {
   text.in();
-  text2.in();
+  gallery.style.display = 'grid';
   wave.in(way);
 });
 
 waveSection.onOut(function (way) {
   text.out(way);
-  text2.out(way);
+  gallery.style.display = 'none';
   wave.out(way);
 });
 
 waveSection.onStart(function () {
   wave.start();
 
+
   wave.el.visible = true;
 });
 
 waveSection.onStop(function () {
   wave.stop();
-
+  gallery.style.display = 'none';
   wave.el.visible = false;
 });
 

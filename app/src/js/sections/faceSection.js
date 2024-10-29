@@ -9,7 +9,7 @@ var Strips = require('../objects3D/StripsObject3D');
 var faceSection = new Section('face');
 
 var text = new TextPanel(
-  'Achievements',
+  'About Us',
   {
     align: 'center',
     style: '',
@@ -27,7 +27,7 @@ statsContainer.style.position = 'absolute';
 statsContainer.style.top = '70%';
 
 // statsContainer.style.right = '-35%';
-statsContainer.style.left = '65%';
+statsContainer.style.left = '57.5%';
 statsContainer.style.transform = 'translate(-50%, -50%)';
 statsContainer.style.zIndex = 10;
 statsContainer.style.display = 'none';

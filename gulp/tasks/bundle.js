@@ -35,6 +35,15 @@ gulp.task('bundle:3DEvents', function () {
   );
 });
 
+gulp.task('bundle:3DTeams', function () {
+  bundle(
+    ['./app/dist/js/3D/vendor.js', './app/dist/js/3D/mainTeam.js'],
+    './app/dist/js/3D/bundleTeam.js',
+    'Bundle 3D Team'
+  );
+});
+
+
 gulp.task('bundle:2D', function () {
   bundle(
     ['./app/dist/js/2D/vendor.js', './app/dist/js/2D/main.js'],
@@ -43,4 +52,4 @@ gulp.task('bundle:2D', function () {
   );
 });
 
-gulp.task('bundle', ['bundle:2D', 'bundle:3D','bundle:3DEvents']);
+gulp.task('bundle', ['bundle:2D', 'bundle:3D','bundle:3DEvents','bundle:3DTeams']);

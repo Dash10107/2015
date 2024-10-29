@@ -41,61 +41,61 @@
     max-width: 1200px; /* Limit width on larger screens */
    
 }
-
-/* Grid Layout for Stats Cards */
-.stats-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
-    gap: 20px; /* Adjust gap for better spacing */
-    padding: 10px;
+#statscards {
+  display: flex;
+  gap: 20px; /* Add space between cards */
+  justify-content: center;
+  align-items: center;
 }
 
-/* General Card Styles */
 .card {
-    /* background: white; */
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    overflow-wrap: break-word; /* Prevent long text overflow */
-    color: white;
+  width: 30%; /* Adjust card size */
+  padding: 20px;
+  position: relative;
+  left: -10%;
+  border: 2px solid transparent;
+  border-radius: 15px; /* Rounded corners */
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  /* background: #fff; */
+  color: white;
 }
 
 .card:hover {
-    transform: translateY(-5%);
+  transform: scale(1.05); /* Slightly increase size on hover */
+  border-color: linear-gradient(45deg, #ff6ec4, #7873f5); /* Add gradient border */
+  color: #ff6ec4; /* Change text color on hover */
 }
 
 .icon {
-    font-size: 50px; /* Font size that adjusts well for smaller screens */
-    /* color: #2d1b3d; */
-    color: white;
-    margin-bottom: 10px;
+  font-size: 55px;
+  transition: color 0.3s ease;
+  margin-bottom: 4vh;
 }
 
+.card:hover .icon {
+  color: #7873f5; /* Change icon color on hover */
+}
+
+.card h2, .card p {
+  margin: 10px 0;
+  margin-top: 3vh;
+  font-size: 1.5rem;
+  /* color: #333; Initial color */
+  color: white;
+  transition: color 0.3s ease;
+}
 .card h2 {
-    /* color: #2d1b3d; */
-    color: white;
-    font-size: 24px;
-    margin: 10px 0;
-    position: relative;
-    word-wrap: break-word; /* Prevent text overflow */
+  font-size: 1.7rem;
 }
 
-.card h2::after {
-    content: '';
-    display: block;
-    width: 30px;
-    height: 3px;
-    background: #fff;
-    margin: 10px auto;
+.card:hover h2, .card:hover p {
+  color: #ff6ec4; /* Change text color on hover */
 }
 
-.card p {
-    /* color: #444; */
-    color: white;
-    font-size: 18px;
-    font-weight: 500;
+/* Gradient Border Effect */
+.card:hover {
+  border-image: linear-gradient(45deg, #ff6ec4, #7873f5) 1; /* Gradient border */
 }
 
 /* Mission Grid */
@@ -175,31 +175,30 @@
         width: 100%;
         padding: 10px;
     }
-    #statscards{
-      top: 25%;
+    #statscards {
+  top: 20%; /* Move up slightly to create more space */
+  left: 65%; /* Centered more on the page */
+  transform: translate(-50%, -50%); /* Center the container more evenly */
+}
 
-    left: 70%;
-    }
+.card {
+  width: 60%; /* Increase width to spread the cards out */
+  padding: 20px; /* Increase padding for more internal spacing */
+  position: relative;
+  left: -20%; /* Adjust to keep centered if necessary */
+}
 
-    .card {
-        /* width: 30%; */
-        padding: 10px;
-        position: relative;
-        left: -25%;
-        /* top: 20%; */
-    }
+.icon {
+  font-size: 60px; /* Larger icon size */
+}
 
-    .icon {
-        font-size: 40px;
-    }
+.card h2 {
+  font-size: 24px; /* Larger heading size */
+}
 
-    .card h2 {
-        font-size: 20px;
-    }
-
-    .card p {
-        font-size: 16px;
-    }
+.card p {
+  font-size: 18px; /* Larger text for paragraph */
+}
 
     .mission-card {
         padding: 5px;
@@ -534,7 +533,7 @@
           <a class="menu__item menu__items--3D" data-button="sounds"> MUTE </a>
           <a class="menu__item menu__items--3D" href="./index.html" data-button="help">Home </a>          
           <a class="menu__item menu__items--3D" href="./events.html" data-button="help">Events </a>
-          <a class="menu__item placeholder--email" href="./team.html"> Our Team</a>
+          <a class="menu__item menu__items--3D" href="./team.html"> Our Team</a>
           <a class="menu__item menu__items--3D" data-button="quality"> QUALITY 0.5 </a>
         </div>
       </div>
@@ -743,8 +742,8 @@
           <div class="part part--title end__title"
               data-7000="opacity:0"
               data-7400="opacity:1">
-            <h1 class="text--white text--noMargin"> THANKS FOR </h1>
-            <h1 class="text--white text--noMargin"> WATCHING </h1>
+            <h1 class="text--white text--noMargin"> THANKS FROM </h1>
+            <h1 class="text--white text--noMargin">IETE </h1>
           </div>
         </div>
 
@@ -752,43 +751,12 @@
       </div>
     </div>
 
-    <div class="tails">
+    <!-- <div class="tails">
       <div class="tails__section tails__section--about">
-        <h1 class="tails__section__el"> IETE <span class="placeholder--agency placeholder--agency--capital"></span> </h1>
-        <!-- <h2 class="tails__section__el text--center">
-          I'm V, a french creative / front end developer. <br/>
-          And I want to work for you.
-        </h2>
-        <div class="tails__section__el">
-          <p>
-            I love to experiment, iterate and build premium experiences.
-          </p>
-          <p>
-            I studied graphic design for a few years, and then started coding, at first to enrich my reflection and get a better understanding of how a project is conducted, but soon for the thrill of it.
-          </p>
-          <p>
-            After working in Shanghai for more than a year as a web developer, it's time for a change. I'm looking to work for an agency with curious, dynamic and innovative people, and I think <span class="placeholder--agency placeholder--agency--you"></span> can be the one for me.
-          </p>
-          <p>
-            To conclude, I am a hardworker with team spirit, creative, curious, and eager to learn new things.
-          </p>
-          <p>
-            I'm of course available for any questions you might have. You can contact me at valentin.marmonier@gmail.com
-          </p>
-          <div class="text--center">
-            <a class="tails__link placeholder--email"> Contact me </a>
-          </div>
-          <p>
-            Thank you in advance for your time.
-          </p>
-          <p>
-            Valentin Marmonier
-          </p>
-        </div> -->
+       
       </div>
 
       <div class="tails__section tails__section--site">
-        <h1 class="tails__section__el"> ABOUT THIS WEBSITE </h1>
 
         <div class="wireframe">
           <div class="wireframe__page">
@@ -862,65 +830,15 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> 
 
-        <!-- <p>
-          This is not really a portfolio, but my attempt at learning WebGL. <br>
-          I wanted to learn WebGL for quite some time, especially after Internet Explorer started supporting it.
-        </p> -->
       </div>
 
       <div class="tails__section tails__section--skills">
-        <!-- <h1 class="tails__section__el"> MY SKILLS </h1>
-        <h2 class="tails__section__el"> Javascript </h2>
-        <div class="tails__section__el">
-          <p>
-            ES5 / ES6 <br>
-            Node.js <br>
-            Coffeescript <br>
-            Typescript
-          </p>
-          <p> 
-            <span> Make life easier: </span> jQuery, Zepto, underscore.js <br>
-            <span> WebGL: </span> Three.js <br>
-            <span> Canvas: </span> paper.js, D3.js <br>
-            <span> Animation: </span> TweenLite / TweenMax, Velocity.js <br>
-            <span> MV* Frameworks: </span> Backbone.js, AngularJS, React <br>
-            <span> Package manager: </span> Npm, Bower <br>
-            <span> Dependencies injection: </span> AMD (requirejs), CommonJS (browserify) <br>
-            <span> build tools: </span> Grunt, Gulp, Make <br>
-            <span> features detection: </span> Modernizr <br>
-            <span> Tests: </span> Jasmine, PhantomJS
-          </p>
-        </div>
-
-        <h2 class="tails__section__el"> HTML / CSS </h2>
-        <div class="tails__section__el">
-            <p>
-            HTML5 / CSS3 <br>
-            SVG
-          </p>
-          <p>
-            Preprocessors: LESS, SASS <br>
-            Modular: SMACSS, BEM
-          </p>
-        </div>
-        <h2 class="tails__section__el"> Misc </h2>
-        <div class="tails__section__el">
-          <p>
-            PHP: Cake PHP, Wordpress <br>
-            Python &amp; Ruby <br>
-            Version control: Git, SVN <br>
-            I care about the elders: Polyfills and fallbacks for older browsers <br>
-            Design patterns: MV*, Pubsub, Modules, Singleton, Decorator, ... <br>
-            Adobe creative suite: Photoshop, Illustrator, InDesign, ... <br>
-            3D: Maya
-          </p>
-        </div>
-      </div> -->
+       
     </div>
 
     <div class="trigger"></div>
-  </div>
+  </div> -->
 </body>
 </html>
