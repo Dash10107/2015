@@ -32,7 +32,7 @@ var galaxySection = require('./sections/galaxySection');
 var gravitySection = require('./sections/gravitySection');
 // var citySection = require('./sections/citySection');
 var endSection = require('./sections/endSection');
-
+var techTalksSection = require('./sections/techTalks');
 jQuery(function () {
   HASH.replacePlaceholders();
 
@@ -99,6 +99,7 @@ jQuery(function () {
     heightSection,
     neonsSection,
     waveSection,
+    techTalksSection,
     // faceSection,
     rocksSection,
     galaxySection,
@@ -107,50 +108,60 @@ jQuery(function () {
     endSection
   ]);
 
-  SCENE.on('section:changeBegin', function () {
-    var to = this.to.name;
+  // Initialize the first section immediately when the scene starts
+function initializeFirstSection() {
+  const initialSection = heightSection; // Assuming 'height' is the first section
+  initialSection.show();
+  initialSection.in();
+  initialSection.start();
+}
 
-    if (to === 'height') {
-            heightSection.show();
+// Call initializeFirstSection when the page loads or scene initializes
+initializeFirstSection();
+
+  function transitionToSection(toSection, fromSection) {
+    return new Promise((resolve) => {
+      if (fromSection && fromSection.out) {
+        fromSection.out(); // Trigger the "out" transition
+        fromSection.stop(); // Stop the section's active processes
+      }
+      setTimeout(() => {
+        if (toSection) {
+          toSection.in();   // Trigger the "in" transition
+          toSection.start(); // Start the section's active processes
+        }
+        resolve(); // Resolve the promise after the transition is complete
+      }, 500); // Adjust timeout to match the out transition duration
+    });
+  }
+  
+  SCENE.on('section:changeBegin', async function () {
+    const to = this.to.name;
+    const from = this.from.name;
     
-      heightSection.in();
-
-      heightSection.start();
-    }
-    else if (to === 'neons') {
-      neonsSection.start();
-      // neonsSection.smokeStart();
-      // heightSection.show();
-    } 
-    else if (to === 'wave') {
-      waveSection.in();
-      waveSection.start();
-    }
-    // else if (to === 'face') {
-    //   faceSection.in();
-    //   faceSection.start();
-    //   rocksSection.show();
-    // }
-    // else if (to === 'rocks') {
-    //   rocksSection.in();
-    //   rocksSection.start();
-    // }
-    else if (to === 'galaxy') {
-      waveSection.onOut();
-      galaxySection.in();
-      galaxySection.start();
-    }
-    else if (to === 'gravity') {
-      gravitySection.in();
-      gravitySection.start();
-    }
-    // else if (to === 'city') {
-    //   // citySection.in();
-    // }
-    else if (to === 'end') {
-      endSection.in();
-    }
+    // Map section names to section objects
+    const sections = {
+      height: heightSection,
+      neons: neonsSection,
+      wave: waveSection,
+      techTalks: techTalksSection,
+      galaxy: galaxySection,
+      gravity: gravitySection,
+      end: endSection
+    };
+    
+    // Get the current and target section objects
+    const fromSection = sections[from];
+    const toSection = sections[to];
+  
+    // Transition from the current section to the target section
+    await transitionToSection(toSection, fromSection);
   });
+  
+  SCENE.on('section:changeComplete', function () {
+    // Any additional cleanup or final actions after transition
+  });
+  
 
   SCENE.on('section:changeComplete', function () {
     var from = this.from.name;
@@ -158,12 +169,17 @@ jQuery(function () {
       heightSection.stop();
     }
     else  if (from === 'neons') {
+      neonsSection.out();
       neonsSection.stop();
     }
     else if (from === 'wave') {
      waveSection.onOut();
       waveSection.stop();
     }
+    else if (from === 'techTalks'){
+      techTalksSection.out();
+      techTalksSection.stop();
+      }
     // else if (from === 'face') {
     //   faceSection.stop();
     // }
@@ -171,9 +187,11 @@ jQuery(function () {
       rocksSection.stop();
     }
     else if (from === 'galaxy') {
+      galaxySection.out();
       galaxySection.stop();
     }
     else if (from === 'gravity') {
+      gravitySection.out();
       gravitySection.stop();
     }
   });
@@ -192,8 +210,14 @@ jQuery(function () {
   });
 
   SCENE.on('section:changeBegin', function () {
-    map.setActive(this.to.index);
+    var delay = 0.5; // Adjust the delay as needed (in seconds)
+  
+    // Delay setting the active section
+    TweenLite.delayedCall(delay, function() {
+      map.setActive(this.to.index);
+    }.bind(this)); // Bind 'this' to maintain context inside the delayed function
   });
+  
 
   var wireframe = new Wireframe(jQuery('.wireframe'));
   APP.on('heads:visible', function () {

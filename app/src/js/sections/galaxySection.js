@@ -27,8 +27,8 @@ var videodiv = document.getElementById('udaan-video');
 
 // Apply inline CSS to style and center the video
 videodiv.style.position = 'absolute'; // Overlay on the scene
-videodiv.style.top = '20%'; // Center vertically
-videodiv.style.left = '0'; // Center horizontally
+videodiv.style.top = '60%'; // Center vertically
+videodiv.style.left = '50%'; // Center horizontally
 videodiv.style.transform = 'translate(-50%, -50%)'; // Center properly using transform
 videodiv.style.width = '100%';
  // Make the video div take 80% of the viewport width
@@ -64,6 +64,7 @@ galaxySection.onStart(function () {
 
 galaxySection.onStop(function () {
   rocks.stop();
+  videodiv.style.display = 'none';
 });
 
 galaxySection.show = function () {

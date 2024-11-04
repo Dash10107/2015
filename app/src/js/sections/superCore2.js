@@ -43,12 +43,14 @@ superCore2Section.onOut(function (way) {
 });
 
 superCore2Section.onStart(function () {
-
+  text.in();
+  gallery2.style.display = 'grid';
 
 });
 
 superCore2Section.onStop(function () {
-    
+  text.out();
+  gallery2.style.display = 'none';
     
 });
 

@@ -112,55 +112,64 @@ jQuery(function () {
     // citySection,
     endSection
   ]);
+// Initialize the first section (if needed) when the scene starts
+function initializeFirstSection() {
+  const initialSection = ourTeamSection; 
+  initialSection.show();
+  // Replace with the actual initial section if it's different
+  initialSection.in();
+  initialSection.start();
+}
 
-  SCENE.on('section:changeBegin', function () {
-    var to = this.to.name;
+// Call initializeFirstSection when the page loads or scene initializes
+initializeFirstSection();
 
-    if (to === 'ourteam') {
-      // neonsSection.start();
-      // neonsSection.smokeStart();
-      ourTeamSection.in();
-      ourTeamSection.start();
-
-      // heightSection.show();
+// Function to handle transitions between sections
+function transitionToSection(toSection, fromSection) {
+  return new Promise((resolve) => {
+    if (fromSection && fromSection.out) {
+      fromSection.out();  // Trigger the "out" transition for the current section
+      fromSection.stop(); // Stop the section's active processes
     }
-    else if (to === 'supercore') {
-    
-      superCoreSection.in();
-      superCoreSection.start();
-    }
-    else if (to === 'supercore2') {
-      superCore2Section.in();
-      superCore2Section.start();
-
-      // waveSection.in();
-      // waveSection.start();
-    }
-    // else if (to === 'face') {
-    //   faceSection.in();
-    //   faceSection.start();
-    //   rocksSection.show();
-    // }
-    // else if (to === 'rocks') {
-    //   rocksSection.in();
-    //   rocksSection.start();
-    // }
-    // else if (to === 'galaxy') {
-    //   // waveSection.onOut();
-    //   // galaxySection.in();
-    //   galaxySection.start();
-    // // }
-    // else if (to === 'gravity') {
-    //   // gravitySection.in();
-    //   gravitySection.start();
-    // }
-    // else if (to === 'city') {
-    //   citySection.in();
-    // }
-    else if (to === 'end') {
-      endSection.in();
-    }
+    setTimeout(() => {
+      if (toSection) {
+        toSection.in();    // Trigger the "in" transition for the next section
+        toSection.start(); // Start the section's active processes
+      }
+      resolve(); // Resolve the promise after the transition completes
+    }, 500); // Adjust this timeout as needed for the out transition duration
   });
+}
+
+SCENE.on('section:changeBegin', async function () {
+  const to = this.to.name;
+  const from = this.from.name;
+
+  // Map section names to section objects
+  const sections = {
+    ourteam: ourTeamSection,
+    supercore: superCoreSection,
+    supercore2: superCore2Section,
+    end: endSection,
+    // Uncomment and add other sections as needed:
+    // face: faceSection,
+    // rocks: rocksSection,
+    // galaxy: galaxySection,
+    // gravity: gravitySection,
+    // city: citySection,
+  };
+
+  // Get the current (from) and target (to) sections
+  const fromSection = sections[from];
+  const toSection = sections[to];
+
+  // Transition from the current section to the target section
+  await transitionToSection(toSection, fromSection);
+});
+
+SCENE.on('section:changeComplete', function () {
+  // Any additional cleanup or final actions after transition
+});
 
   SCENE.on('section:changeComplete', function () {
     var from = this.from.name;
