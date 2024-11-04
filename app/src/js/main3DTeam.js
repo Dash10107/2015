@@ -23,14 +23,14 @@ var Help = require('./objects2D/HelpObject2D');
 var Wireframe = require('./objects2D/WireframeObject2D');
 
 // Keep only required sections
-var neonsSection = require('./sections/neonsSection');
+// var neonsSection = require('./sections/neonsSection');
 var heightSection = require('./sections/heightSection');
 var waveSection = require('./sections/waveSection');
 
 var rocksSection = require('./sections/rocksSection');
-var galaxySection = require('./sections/galaxySection');
-var gravitySection = require('./sections/gravitySection');
-var citySection = require('./sections/citySection');
+// var galaxySection = require('./sections/galaxySection');
+// var gravitySection = require('./sections/gravitySection');
+// var citySection = require('./sections/citySection');
 var endSection = require('./sections/endSection');
 var ourTeamSection = require ('./sections/ourTeam')
 var superCoreSection = require('./sections/superCore')
@@ -106,10 +106,10 @@ jQuery(function () {
     heightSection,
     waveSection,
     // faceSection,
-    rocksSection,
-    galaxySection,
-    gravitySection,
-    citySection,
+    // rocksSection,
+    // galaxySection,
+    // gravitySection,
+    // citySection,
     endSection
   ]);
 
@@ -145,18 +145,18 @@ jQuery(function () {
     //   rocksSection.in();
     //   rocksSection.start();
     // }
-    else if (to === 'galaxy') {
-      // waveSection.onOut();
-      // galaxySection.in();
-      galaxySection.start();
-    }
-    else if (to === 'gravity') {
-      // gravitySection.in();
-      gravitySection.start();
-    }
-    else if (to === 'city') {
-      citySection.in();
-    }
+    // else if (to === 'galaxy') {
+    //   // waveSection.onOut();
+    //   // galaxySection.in();
+    //   galaxySection.start();
+    // // }
+    // else if (to === 'gravity') {
+    //   // gravitySection.in();
+    //   gravitySection.start();
+    // }
+    // else if (to === 'city') {
+    //   citySection.in();
+    // }
     else if (to === 'end') {
       endSection.in();
     }
@@ -184,12 +184,12 @@ jQuery(function () {
     else if (from === 'rocks') {
       rocksSection.stop();
     }
-    else if (from === 'galaxy') {
-      galaxySection.stop();
-    }
-    else if (from === 'gravity') {
-      gravitySection.stop();
-    }
+    // else if (from === 'galaxy') {
+    //   galaxySection.stop();
+    // }
+    // else if (from === 'gravity') {
+    //   gravitySection.stop();
+    // }
   });
 
   SCENE.on('end', function () {

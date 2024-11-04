@@ -24,7 +24,7 @@ heightMap.el.rotation.y = -0.6;
 heightSection.add(heightMap.el);
 
 var text = new TextPanel(
-  '',
+  'OUR \n EVENTS',
   {
     align: 'right',
     style: '',

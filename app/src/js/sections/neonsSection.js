@@ -2,96 +2,76 @@
 
 var Section = require('../classes/SectionClass');
 
-var Smoke = require('../objects3D/SmokeObject3D');
-var Neon = require('../objects3D/NeonObject3D');
+var TextPanel = require('../objects3D/TextPanelObject3D');
+var Rocks = require('../objects3D/RocksObject3D');
 
 var neonsSection = new Section('neons');
 
-var smoke = new Smoke({
-  planesNumber: 3,
-  frontColor: '#4c4c4c',
-  backColor: '#ffffff',
-  data: [
-    { positionX : -2.5, positionY: -18.8, positionZ: -6, rotationZ: 2.7, scale: 8.5 },
-    { positionX : -11.1, positionY: 10.3, positionZ: -10.4, rotationZ: 1.4, scale: 5.8 },
-    { positionX : -15.1, positionY: -5.9, positionZ: -19.2, rotationZ: 1.6, scale: 7.4 }
-  ]
+var rocks = new Rocks();
+neonsSection.add(rocks.el);
+
+var text = new TextPanel(
+  'BUGBUSTER',
+  {
+    align: 'center',
+    style: '',
+    size: 50,
+    lineSpacing: 40
+  }
+);
+text.el.position.set(0, 15, 0);
+neonsSection.add(text.el);
+text.out('down');
+
+var videodiv = document.getElementById('bugbuster-video');
+
+// Apply inline CSS to style and center the video
+videodiv.style.position = 'absolute'; // Overlay on the scene
+videodiv.style.top = '20%'; // Center vertically
+videodiv.style.left = '0'; // Center horizontally
+videodiv.style.transform = 'translate(-50%, -50%)'; // Center properly using transform
+videodiv.style.width = '100%';
+ // Make the video div take 80% of the viewport width
+videodiv.style.height = '80%'
+ videodiv.style.zIndex = '100'; // Ensure it appears above the canvas
+videodiv.style.padding = '20px'; // Add padding around the video
+videodiv.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Dark background with transparency
+videodiv.style.borderRadius = '15px'; // Rounded corners
+videodiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)'; // Add a shadow effect
+videodiv.style.display = 'none'; // Initially hidden
+neonsSection.add(videodiv);
+
+
+
+
+rocks.el.visible = false;
+
+neonsSection.onIn(function () {
+  text.in();
+  rocks.in();
+  videodiv.style.display = 'block';
 });
-neonsSection.add(smoke.el);
 
-var neonA = new Neon();
-
-var neonB = new Neon();
-neonB.el.position.set(0, 0, 0);
-neonB.el.rotation.z = 2;
-
-var neonC = new Neon();
-neonC.el.position.set(0, 13, 0);
-neonC.el.rotation.z = 2;
-
-var neonD = new Neon();
-neonD.el.position.set(0, -13, 0);
-neonD.el.rotation.z = 2;
-
-neonsSection.add(neonA.el);
-neonsSection.add(neonB.el);
-neonsSection.add(neonC.el);
-neonsSection.add(neonD.el);
-
-neonA.el.visible = false;
-neonB.el.visible = false;
-neonC.el.visible = false;
-neonD.el.visible = false;
-smoke.el.visible = false;
+neonsSection.onOut(function (way) {
+  text.out('down');
+  rocks.out(way);
+  videodiv.style.display = 'none';
+});
 
 neonsSection.onStart(function () {
-  neonA.start();
-  neonB.start();
-  neonC.start();
-  neonD.start();
-
-  neonA.el.visible = true;
-  neonB.el.visible = true;
-  neonC.el.visible = true;
-  neonD.el.visible = true;
+  rocks.start();
 });
 
 neonsSection.onStop(function () {
-  neonA.stop();
-  neonB.stop();
-  neonC.stop();
-  neonD.stop();
-
-  neonA.el.visible = false;
-  neonB.el.visible = false;
-  neonC.el.visible = false;
-  neonD.el.visible = false;
+  rocks.stop();
 });
 
-var smokePlaying = false;
-
-neonsSection.smokeStart = function () {
-  if (smokePlaying) {
-    return false;
-  }
-
-  smokePlaying = true;
-
-  smoke.start();
-
-  smoke.el.visible = true;
+neonsSection.show = function () {
+  rocks.el.visible = true;
 };
 
-neonsSection.smokeStop = function () {
-  if (!smokePlaying) {
-    return false;
-  }
-
-  smokePlaying = false;
-
-  smoke.stop();
-
-  smoke.el.visible = false;
+neonsSection.hide = function () {
+  rocks.el.visible = false;
 };
 
 module.exports = neonsSection;

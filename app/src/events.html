@@ -24,97 +24,159 @@
   <meta name="msapplication-TileColor" content="#2d89ef">
   <meta name="msapplication-TileImage" content="./app/public/favicons/mstile-144x144.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-/* Container to hold the grid */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-}
 
-.gallery img {
-    width: 100%;
-    /* height: 300px; */
-    height: 200%;
-    object-fit: cover;
-    border-radius: 12px;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    position: relative;
-    cursor: pointer;
-}
+  <style>
 
-.gallery img:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
-
-/* Add a subtle overlay on hover */
-.gallery img::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.1),
-        rgba(255, 255, 255, 0.1)
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 12px;
-}
-
-.gallery img:hover::after {
-    opacity: 1;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
+    .gallery-container {
+      padding: 4rem 2rem;
+      /* background: #f8f9fa; */
+      width: 70%;
+    }
+    
     .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-        padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem;
     }
-
-    .gallery img {
-        height: 250px;
+    
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
-}
-
-@media (max-width: 480px) {
-    .gallery {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 0.5rem;
+    
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center;
     }
-
-    .gallery img {
-        height: 200px;
+    
+    /* Hover Effects */
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
-}
-
-/* Optional: Add fade-in animation when images load */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+    
+    .gallery-item:hover img {
+      transform: scale(1.1);
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    /* Overlay Effect */
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+          to bottom,
+          transparent 0%,
+          transparent 70%,
+          rgba(0, 0, 0, 0.2) 100%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
-}
-
-.gallery img {
-    animation: fadeIn 0.6s ease-out forwards;
-}
-</style>
+    
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+    
+    /* Shine Effect */
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+          to right,
+          transparent 0%,
+          rgba(255, 255, 255, 0.3) 50%,
+          transparent 100%
+      );
+      transform: skewX(-25deg);
+      transition: all 0.75s ease;
+      z-index: 1;
+    }
+    
+    .gallery-item:hover::before {
+      left: 150%;
+    }
+    
+    /* Loading Animation */
+    @keyframes fadeInScale {
+      0% {
+          opacity: 0;
+          transform: scale(0.9) translateY(30px);
+      }
+      100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+      }
+    }
+    
+    .gallery-item {
+      animation: fadeInScale 0.8s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+    }
+    
+    .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+    .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+    .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+    .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+    
+    /* Responsive Design */
+    @media screen and (min-width: 1200px) {
+      .gallery {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2.5rem;
+      }
+      
+      .gallery-item {
+          aspect-ratio: 16/9;
+      }
+    }
+    
+    @media screen and (max-width: 768px) {
+      .gallery-container {
+          padding: 2rem 1rem;
+      }
+      
+      .gallery {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+      }
+      
+      .gallery-item {
+          aspect-ratio: 3/4;
+      }
+      
+      .gallery-item:hover {
+          transform: translateY(-5px);
+      }
+    }
+    
+    @media screen and (max-width: 480px) {
+      .gallery {
+          gap: 0.75rem;
+          padding: 0.5rem;
+      }
+      
+      .gallery-item {
+          aspect-ratio: 2/4;
+      }
+    }
+    </style>
+    
 </head>
 <body>
   <div class="loader" style="display: flex; justify-content: center;">
@@ -328,15 +390,34 @@ jsPayload.src = './app/dist/js/' + prefix + (isEventsPage ? '/bundleEvents.js' :
 
         <div class="heads__section heads__section--beams">
          
-          <div id="gallery" class="gallery-container">
-            <div  class="gallery">
-                <img src="./app/public/img/bugbuster3.jpg" alt="Bug Busters Event Photo 4">
-                <img src="./app/public/img/bugbuster1.jpg" alt="Bug Busters Event Photo 1">
-                <img src="./app/public/img/bugbuster2.jpg" alt="Bug Busters Event Photo 2">
-                <img src="./app/public/img/bugbuster3.jpg" alt="Bug Busters Event Photo 3">
+          <div class="gallery-container" id="gallery">
+            <div class="gallery">
+                <div class="gallery-item">
+                  <img src="./app/public/img/bugbuster3.jpg" alt="Bug Busters Event Photo 4">               
+                </div>
+                <div class="gallery-item">
+                  <img src="./app/public/img/bugbuster1.jpg" alt="Bug Busters Event Photo 1">          
+                </div>
+                <div class="gallery-item">
+                  <img src="./app/public/img/bugbuster2.jpg" alt="Bug Busters Event Photo 2">               
+                </div>
+                <div class="gallery-item">
+                  <img src="./app/public/img/bugbuster3.jpg" alt="Bug Busters Event Photo 3">
+                </div>
             </div>
         </div>
-          <div class="part part--beam--left"
+
+        <video id="bugbuster-video" class="video__tag" width="200" height="400" controls style="z-index: 100;  animation: fadeIn 2s ease-in-out 1s forwards;" 
+        src="./app/public/udaan.mp4">
+          Your browser does not support the video tag.
+        </video>
+        
+        <video id="udaan-video" class="video__tag" width="200" height="400" controls style="z-index: 100; animation: fadeIn 2s ease-in-out 1s forwards;" 
+        src="./app/public/udaan.mp4">
+          Your browser does not support the video tag.
+        </video>
+        
+        <div class="part part--beam--left"
               data-100="transform:translate3d(0px, 120px, 0px); opacity:0"
               data-500="opacity:0.1"
               data-1500="transform:translate3d(0px, 0px, 0px)"></div>

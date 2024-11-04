@@ -11,16 +11,16 @@ var waveSection = new Section('wave');
 // waveSection.add(wave.el);
 
 var text = new TextPanel(
-  'BugBuster',
+  '',
   {
     align: 'center',
-    style: '',
+    style: 'z-index:100',
     size: 50,
-    lineSpacing: 40
+    lineSpacing: 40,
   }
 );
-text.el.position.y = 10;
-text.el.rotation.x = 0.2;
+text.el.position.set(0, 10, 0);
+
 waveSection.add(text.el);
 
 var gallery = document.getElementById("gallery");

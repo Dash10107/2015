@@ -17,7 +17,7 @@ var text = new TextPanel(
     lineSpacing: 40,
   }
 );
-text.el.position.set(0, 13, 0);
+text.el.position.set(0, 15, 0);
 superCoreSection.add(text.el);
 
 

@@ -30,7 +30,7 @@ var waveSection = require('./sections/waveSection');
 var rocksSection = require('./sections/rocksSection');
 var galaxySection = require('./sections/galaxySection');
 var gravitySection = require('./sections/gravitySection');
-var citySection = require('./sections/citySection');
+// var citySection = require('./sections/citySection');
 var endSection = require('./sections/endSection');
 
 jQuery(function () {
@@ -96,31 +96,32 @@ jQuery(function () {
   SCENE.config({ quality: 1 });
   SCENE.setViewport($viewport);
   SCENE.addSections([
-    neonsSection,
     heightSection,
+    neonsSection,
     waveSection,
     // faceSection,
     rocksSection,
     galaxySection,
     gravitySection,
-    citySection,
+    // citySection,
     endSection
   ]);
 
   SCENE.on('section:changeBegin', function () {
     var to = this.to.name;
 
-    if (to === 'neons') {
-      // neonsSection.start();
-      // neonsSection.smokeStart();
-      heightSection.show();
-    }
-    else if (to === 'height') {
+    if (to === 'height') {
+            heightSection.show();
     
       heightSection.in();
 
       heightSection.start();
     }
+    else if (to === 'neons') {
+      neonsSection.start();
+      // neonsSection.smokeStart();
+      // heightSection.show();
+    } 
     else if (to === 'wave') {
       waveSection.in();
       waveSection.start();
@@ -143,9 +144,9 @@ jQuery(function () {
       gravitySection.in();
       gravitySection.start();
     }
-    else if (to === 'city') {
-      citySection.in();
-    }
+    // else if (to === 'city') {
+    //   // citySection.in();
+    // }
     else if (to === 'end') {
       endSection.in();
     }
@@ -153,12 +154,11 @@ jQuery(function () {
 
   SCENE.on('section:changeComplete', function () {
     var from = this.from.name;
-
-    if (from === 'neons') {
-      neonsSection.stop();
-    }
-    else if (from === 'height') {
+    if (from === 'height') {
       heightSection.stop();
+    }
+    else  if (from === 'neons') {
+      neonsSection.stop();
     }
     else if (from === 'wave') {
      waveSection.onOut();
