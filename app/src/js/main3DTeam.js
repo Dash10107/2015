@@ -32,6 +32,10 @@ var galaxySection = require('./sections/galaxySection');
 var gravitySection = require('./sections/gravitySection');
 var citySection = require('./sections/citySection');
 var endSection = require('./sections/endSection');
+var ourTeamSection = require ('./sections/ourTeam')
+var superCoreSection = require('./sections/superCore')
+var superCore2Section  = require('./sections/superCore2')
+
 
 jQuery(function () {
   HASH.replacePlaceholders();
@@ -55,8 +59,8 @@ jQuery(function () {
 
   imagesLoader.onComplete(function () {
     loader.out();
-    TweenLite.delayedCall(0.8, SCENE.in);
-    TweenLite.delayedCall(1.5, function () {
+    TweenLite.delayedCall(0.3, SCENE.in);
+    TweenLite.delayedCall(0.5, function () {
       map.in();
       menu.in();
     });
@@ -96,7 +100,9 @@ jQuery(function () {
   SCENE.config({ quality: 1 });
   SCENE.setViewport($viewport);
   SCENE.addSections([
-    neonsSection,
+    ourTeamSection,
+    superCoreSection,
+    superCore2Section,
     heightSection,
     waveSection,
     // faceSection,
@@ -110,34 +116,42 @@ jQuery(function () {
   SCENE.on('section:changeBegin', function () {
     var to = this.to.name;
 
-    if (to === 'neons') {
-      neonsSection.start();
-      neonsSection.smokeStart();
-      heightSection.show();
+    if (to === 'ourteam') {
+      // neonsSection.start();
+      // neonsSection.smokeStart();
+      ourTeamSection.in();
+      ourTeamSection.start();
+
+      // heightSection.show();
     }
-    else if (to === 'height') {
-      heightSection.in();
-      heightSection.start();
+    else if (to === 'supercore') {
+    
+      superCoreSection.in();
+      superCoreSection.start();
     }
-    else if (to === 'wave') {
-      waveSection.in();
-      waveSection.start();
+    else if (to === 'supercore2') {
+      superCore2Section.in();
+      superCore2Section.start();
+
+      // waveSection.in();
+      // waveSection.start();
     }
-    else if (to === 'face') {
-      faceSection.in();
-      faceSection.start();
-      rocksSection.show();
-    }
+    // else if (to === 'face') {
+    //   faceSection.in();
+    //   faceSection.start();
+    //   rocksSection.show();
+    // }
     // else if (to === 'rocks') {
     //   rocksSection.in();
     //   rocksSection.start();
     // }
     else if (to === 'galaxy') {
-      galaxySection.in();
+      // waveSection.onOut();
+      // galaxySection.in();
       galaxySection.start();
     }
     else if (to === 'gravity') {
-      gravitySection.in();
+      // gravitySection.in();
       gravitySection.start();
     }
     else if (to === 'city') {
@@ -151,14 +165,18 @@ jQuery(function () {
   SCENE.on('section:changeComplete', function () {
     var from = this.from.name;
 
-    if (from === 'neons') {
-      neonsSection.stop();
+    if (from === 'ourteam') {
+      ourTeamSection.out();
+      ourTeamSection.stop();
     }
-    else if (from === 'height') {
-      heightSection.stop();
+    else if (from === 'supercore') {
+      // heightSection.stop();
+      superCoreSection.out();
+      superCoreSection.stop();
     }
-    else if (from === 'wave') {
-      waveSection.stop();
+    else if (from === 'supercore2') {
+      superCore2Section.out();
+      superCore2Section.stop();
     }
     // else if (from === 'face') {
     //   faceSection.stop();

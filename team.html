@@ -25,7 +25,291 @@
   <meta name="msapplication-TileImage" content="./app/public/favicons/mstile-144x144.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+.gallery-container {
+    /* background-color: #000; */
+    min-height: 90vh;
+    padding: 2rem 1rem;
+    width: 100%;
+}
 
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    /* max-width: 1200px; */
+    margin:  auto;
+    width: 90%;
+    max-width: 1600px;
+    padding: 1rem;
+    position: relative;
+    /* top: 30vh; */
+}
+
+.member-card {
+  position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    aspect-ratio: 2/3;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 280px;
+}
+
+.member-card:hover {
+    transform: translateY(-10px);
+}
+
+.member-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    min-height: 400px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    filter: grayscale(0.3);
+
+}
+
+
+.member-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9),
+        rgba(0, 0, 0, 0.5),
+        transparent
+    );
+    padding: 2rem 1rem 1rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.member-card:hover .member-info {
+    transform: translateY(0);
+}
+
+.member-name {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.06em;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease 0.1s;
+}
+
+.member-role {
+    color: #a8a8a8;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease 0.2s;
+}
+
+.member-card:hover .member-name,
+.member-card:hover .member-role {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.member-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+
+/* Image hover effects */
+.member-card:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0);
+}
+
+/* Smooth entrance animation for cards */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Subtle floating animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Image reveal animation */
+@keyframes revealImage {
+    0% {
+        filter: grayscale(1) brightness(0.8);
+        transform: scale(1.1);
+    }
+    100% {
+        filter: grayscale(0.3) brightness(1);
+        transform: scale(1);
+    }
+}
+
+/* Apply animations */
+.member-card {
+    animation: fadeInScale 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+               float 6s ease-in-out infinite;
+    opacity: 0;
+}
+
+.member-card img {
+    animation: revealImage 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Staggered animation delays */
+.member-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.member-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.member-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+.member-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* Enhanced hover state */
+.member-card {
+    position: relative;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.member-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.member-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, 
+                               rgba(255,255,255,0.1) 0%,
+                               transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.member-card:hover::after {
+    opacity: 1;
+}
+
+/* Enhanced info reveal */
+.member-info {
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95),
+        rgba(0, 0, 0, 0.8),
+        rgba(0, 0, 0, 0.4),
+        transparent
+    );
+}
+
+@media (max-width: 1400px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        width: 80%;
+    }
+    
+    .member-card {
+        min-width: 320px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        padding: 0.5rem;
+        height: 50vh;
+        position: relative;
+        top: 0vh;
+        left: -10vw;
+       width: 100%; 
+    }
+    
+    .member-card {
+        aspect-ratio: 3/3;
+        min-width: 240px;
+    }
+
+    .member-info {
+        padding: 1rem 0.75rem 0.75rem;
+    }
+
+    .member-name {
+        font-size: 1rem;
+    }
+
+    .member-role {
+        font-size: 0.8rem;
+    }
+}
+
+/* Optional: Add fade-in animation when images load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gallery img {
+    animation: fadeIn 0.6s ease-out forwards;
+}
 </style>
 </head>
 <body>
@@ -219,30 +503,88 @@ jsPayload.src = './app/dist/js/' + prefix + (isTeamPage ? '/bundleTeam.js' : '/b
           <div class="trigger__info__bg trigger__info__bg--heads"></div>
         </div>
 
-        <div class="trigger__info trigger__info--tails">
-          <p class="trigger__info__text"> ABOUT IETE </p>
-          <div class="trigger__info__bg trigger__info__bg--tails"></div>
-        </div>
-      </div>
-
-      <div class="heads__sections">
-        <div class="heads__section heads__section--hello">
-          <div class="part part--title hello__title">
-            <h1 class="text--white text--noMargin"> IETE</h1>
-            <h1 class="text--white text--noMargin"> <span class="placeholder--agency placeholder--agency--capital"></span> </h1>
-          </div>
-          <div class="part part--smoke"
-              data-0="transform:translate3d(0px, 0px, 0px)"
-              data-800="transform:translate3d(0px, -300px, 0px)"></div>
-        </div>
-      </div>
-      
-
         <div class="heads__section heads__section--beams">
-          <video id="about-video" class="video__tag" width="200" height="400" controls style="z-index: 100; opacity: 0; animation: fadeIn 2s ease-in-out 1s forwards;" 
-          src="./app/public/udaan.mp4">
-            Your browser does not support the video tag.
-          </video>
+<!--          
+          <div id="gallery" class="gallery-container">
+            <div  class="gallery">
+                <img src="./app/public/img/asmiya.png" alt="Super Core Photo 1">
+                <img src="./app/public/img/harsh.png" alt="Super Core Photo 2">
+                <img src="./app/public/img/woodrow.png" alt="Super Core Photo 3">
+                <img src="./app/public/img/soham.png" alt="Super Core Photo 4">
+            </div>
+        </div> -->
+      <div class="gallery-container"  id="gallery">
+
+        <div class="gallery">
+            <div class="member-card">
+                <img src="./app/public/img/asmiya.png" alt="Team Member 1">
+                <div class="member-info">
+                    <h3 class="member-name">Asmiya Sayyad</h3>
+                    <p class="member-role">Vice Chairperson</p>
+                </div>
+            </div>
+            <div class="member-card">
+              <img src="./app/public/img/woodrow.png" alt="Team Member 2">
+              <div class="member-info">
+                  <h3 class="member-name">Woodrow Gonsalves</h3>
+                  <p class="member-role">Chairperson</p>
+              </div>
+          </div>
+            <div class="member-card">
+                <img src="./app/public/img/smith.png" alt="Team Member 3">
+                <div class="member-info">
+                    <h3 class="member-name">Smith Gawade</h3>
+                    <p class="member-role">Finance Head</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <img src="./app/public/img/soham.png" alt="Team Member 4">
+                <div class="member-info">
+                    <h3 class="member-name">Soham Ganatra</h3>
+                    <p class="member-role">Executive Core</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gallery-container"  id="gallery2">
+
+      <div class="gallery">
+          <div class="member-card">
+              <img src="./app/public/img/achintya.png" alt="Team Member 1">
+              <div class="member-info">
+                  <h3 class="member-name">Achintya Chavan</h3>
+                  <p class="member-role">Executive Core</p>
+              </div>
+          </div>
+          <div class="member-card">
+            <img src="./app/public/img/ops.png" alt="Team Member 2">
+            <div class="member-info">
+                <h3 class="member-name">Vedant Bhavsar</h3>
+                <p class="member-role">Executive Core</p>
+            </div>
+        </div>
+          <div class="member-card">
+              <img src="./app/public/img/harsh.png" alt="Team Member 3">
+              <div class="member-info">
+                  <h3 class="member-name">Harsh Pandey</h3>
+                  <p class="member-role">Executive Core</p>
+              </div>
+          </div>
+
+          <div class="member-card">
+              <img src="./app/public/img/atharva.png" alt="Team Member 4">
+              <div class="member-info">
+                  <h3 class="member-name">Saiesh Vandkar</h3>
+                  <p class="member-role">Executive Core</p>
+              </div>
+          </div>
+      </div>
+  </div>
+        <video id="team-video" class="video__tag" width="200" height="400" controls style="z-index: 100; opacity: 0; animation: fadeIn 2s ease-in-out 1s forwards;" 
+        src="./app/public/udaan.mp4">
+          Your browser does not support the video tag.
+        </video>
           <div class="part part--beam--left"
               data-100="transform:translate3d(0px, 120px, 0px); opacity:0"
               data-500="opacity:0.1"
@@ -257,169 +599,13 @@ jsPayload.src = './app/dist/js/' + prefix + (isTeamPage ? '/bundleTeam.js' : '/b
               data-1700="transform:translate3d(0px, -50px, 0px)"></div>
         </div>
 
-        <div class="heads__section heads__section--drop">
-          <div class="part part--title drop__title"
-              data-1200="opacity:0"
-              data-1500="opacity:1">
-              <h2 class="text--white text--center">About Us</h2>
-              <div id="statscards" class="stats-cards">
-                <div class="card">
-                  <i class="fas fa-clock icon"></i>
-                  <h2 class="counter1" data-target="2007">0</h2>
-                  <p>Since IETE-SPIT Started</p>
-                </div>
-                <div class="card">
-                  <i class="fas fa-users icon"></i>
-                  <h2 class="counter2" data-target="125000">0</h2>
-                  <p>&nbsp;&nbsp;&nbsp;Members&nbsp;&nbsp;&nbsp;</p>
-                </div>
-                <div class="card">
-                  <i class="fas fa-globe icon"></i>
-                  <h2 class="counter3" data-target="64">0</h2>
-                  <p>Centres across the Globe</p>
-                </div>
-              </div>
-
-              <div id="missions" class="container">
-                <div class="mission-grid">
-                    <div class="mission-card">
-                        <h2>Overview:</h2>
-                        <p>To advance Science and Technology for Electronics, Telecommuncation, Computers, Information Technology and related areas</p>
-                    </div>
-                    <div class="mission-card">
-                        <h2>Aim:</h2>
-                        <p>To promote general advancement of electronics and telecommunication engineering and to foster technological innovation</p>
-                    </div>
-                    <div class="mission-card">
-                        <h2>Vision:</h2>
-                        <p>To make technology more simple, innovative and accessible to everyone and to create a scientific temper in every member.</p>
-                    </div>
-                </div>
-            </div>
-              
-
-
               
           </div>
-          <div class="part part--drop"
-              data-1000="transform:translate3d(0px, 350px, 0px); opacity:0"
-              data-1700="transform:translate3d(0px, 0px, 0px); opacity:1"></div>
-        </div>
-
-        <div class="heads__section heads__section--ball">
-          <div class="part part--title ball__title"
-              data-1700="opacity:0"
-              data-2000="opacity:1">
-         
-            </p>
-          </div>
-          <div class="part part--sphere"
-              data-1400="transform:translate3d(0px, -300px, 0px) rotate(60deg); opacity:0"
-              data-2800="transform:translate3d(0px, 250px, 0px) rotate(0deg); opacity:1"></div>
-          <div class="part part--grid"
-              data-1500="transform:translate3d(0px, 300px, 0px); opacity:0"
-              data-2600="transform:translate3d(0px, -200px, 0px); opacity:1"></div>
-        </div>
-
-        <div class="heads__section heads__section--flow">
-          <div class="part part--field"
-              data-2000="transform:translate3d(0px, 200px, 0px); opacity:0"
-              data-2700="transform:translate3d(0px, 0px, 0px); opacity:1"></div>
-          <div class="part part--neons"
-              data-2200="opacity:0"
-              data-3000="opacity:1"
-              data-3500="opacity:0"></div>
-          <div class="part part--smoke flow__smoke"
-              data-2200="transform:translate3d(0px, 400px, 0px); opacity:0"
-              data-3200="transform:translate3d(0px, 0px, 0px); opacity:1"></div>
-        </div>
-
-        <div class="heads__section heads__section--height">
-          <div class="part part--title height__title"
-              data-3500="opacity:0"
-              data-3800="opacity:1">
-            <h1 class="text--white text--right text--noMargin"> LET IT </h1>
-            <h1 class="text--white text--right text--noMargin"> MORPH </h1>
-          </div>
-          <div class="part part--height"
-              data-3000="transform:translate3d(0px, 200px, 0px); opacity:0"
-              data-4000="transform:translate3d(0px, 0px, 0px); opacity:0.5"></div>
-        </div>
-
-        <div class="heads__section heads__section--face">
-          <div class="part part--title face__title"
-            data-3800="opacity:0"
-            data-5000="opacity:1">
-           </div>
-          <div class="part part--face"
-              data-4000="transform:translate3d(0px, 200px, 0px); opacity:0"
-              data-5500="transform:translate3d(0px, 0px, 0px); opacity:1"></div>
-        </div>
-
-        <div class="heads__section heads__section--rocks">
-          <div class="part part--title rocks__title"
-            data-5200="opacity:0"
-            data-5800="opacity:1">
-              
-          <div class="part part--rocks"
-              data-5000="transform:translate3d(0px, 200px, 0px);"
-              data-6000="transform:translate3d(0px, 100px, 0px);"></div>
-        </div>
-
-        <div class="heads__section heads__section--galaxy">
-          <div class="part part--title galaxy__title"
-            data-5900="opacity:0"
-            data-6500="opacity:1">
-              <!-- <h1 class="text--white text--noMargin"> WORK </h1>
-              <h1 class="text--white text--noMargin"> AS A TEAM </h1> -->
-              
-          </div>
-          <div class="part part--galaxy"
-            data-5800="transform:translate3d(0px, -100px, 0px); opacity:0"
-            data-6800="transform:translate3d(0px, 0px, 0px); opacity:1"></div>
-        </div>
-
-        <div class="heads__section heads__section--gravity">
-          <div class="part part--gravity"
-            data-6200="transform:translate3d(0px, 200px, 0px); opacity:0"
-            data-6800="transform:translate3d(0px, 0px, 0px); opacity:1"
-            ></div>
-
-        </div>
-        <div class="social-media" id="socialmedia">
-          <a href="https://www.facebook.com/iete.spit/" target="_blank" class="social-media__link social-media__link--facebook">
-              <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="https://www.youtube.com/channel/UCvumRiXhsBVh3qzsOHis2kA" target="_blank" class="social-media__link social-media__link--youtube">
-              <i class="fab fa-youtube"></i>
-          </a>
-          <a href="https://www.linkedin.com/company/iete-spit/?originalSubdomain=in" target="_blank" class="social-media__link social-media__link--linkedin">
-              <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="https://www.instagram.com/iete_spit/" target="_blank" class="social-media__link social-media__link--instagram">
-              <i class="fab fa-instagram"></i>
-          </a>
-      </div>
-        
-
-        <div class="heads__section heads__section--end">
-          <div class="part part--title end__title"
-              data-7000="opacity:0"
-              data-7400="opacity:1">
-            <h1 class="text--white text--noMargin"> THANKS FOR </h1>
-            <h1 class="text--white text--noMargin"> WATCHING </h1>
-          </div>
-        </div>
-
-        <div class="part part--stars"></div>
-      </div>
-    </div>
 
     
 
   
 
-    <div class="trigger"></div>
   </div>
 </body>
 </html>

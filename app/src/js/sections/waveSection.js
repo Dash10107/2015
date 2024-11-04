@@ -3,15 +3,15 @@
 var Section = require('../classes/SectionClass');
 
 var TextPanel = require('../objects3D/TextPanelObject3D');
-var Wave = require('../objects3D/WaveObject3D');
+// var Wave = require('../objects3D/WaveObject3D');
 
 var waveSection = new Section('wave');
 
-var wave = new Wave();
-waveSection.add(wave.el);
+// var wave = new Wave();
+// waveSection.add(wave.el);
 
 var text = new TextPanel(
-  'Bug Busters',
+  'BugBuster',
   {
     align: 'center',
     style: '',
@@ -34,31 +34,31 @@ waveSection.add(gallery);
 
 
 
-wave.el.visible = false;
+// wave.el.visible = false;
 
 waveSection.onIn(function (way) {
   text.in();
   gallery.style.display = 'grid';
-  wave.in(way);
+  // wave.in(way);
 });
 
 waveSection.onOut(function (way) {
   text.out(way);
   gallery.style.display = 'none';
-  wave.out(way);
+  // wave.out(way);
 });
 
 waveSection.onStart(function () {
-  wave.start();
+  // wave.start();
 
 
-  wave.el.visible = true;
+  // wave.el.visible = true;
 });
 
 waveSection.onStop(function () {
-  wave.stop();
+  // wave.stop();
   gallery.style.display = 'none';
-  wave.el.visible = false;
+  // wave.el.visible = false;
 });
 
 module.exports = waveSection;
